@@ -1,7 +1,7 @@
-# hoan store
+# hoanthui's Store
 
 
 ### VueJs shopping project
 
 
-See [Demo](#).
+See [Demo](https://hoanthuistore.netlify.app/).

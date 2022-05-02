@@ -1,16 +1,24 @@
 <template>
   <div id="app">
+    <loading-view/>
     <short-view-modal/>
+    <noti-sale-modal/>
     <nav-bar/>
-    <router-view/>
+    <navigation-com v-if="$route.name!='home'"/>
+    <router-view :key='$route.fullPath'/>
+    <footer-bar/>
   </div>
 </template>
 
 <script>
 import ShortViewModal from '@/components/Modal/ShortViewModal.vue'
 import NavBar from '@/components/Navigation/NavBar.vue'
+import NotiSaleModal from './components/Modal/NotiSaleModal.vue'
+import FooterBar from './components/Navigation/FooterBar.vue'
+import NavigationCom from './components/Navigation/NavigationCom.vue'
+import LoadingView from './views/LoadingView.vue'
 export default {
-  components: { NavBar, ShortViewModal },
+  components: { NavBar, ShortViewModal, NotiSaleModal, FooterBar, NavigationCom, LoadingView },
   
 }
 </script>

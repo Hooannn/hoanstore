@@ -26,9 +26,6 @@
 import db from '@/plugins/firebase'
 import TopProductItem from '@/components/HomeComponent/TopProductItem.vue'
 export default {
-    firebase: {
-        topProductItems:db.ref('products').limitToLast(4)
-    },
     components: {TopProductItem},
     data() {
         return {
@@ -36,6 +33,15 @@ export default {
             topProductItems:[]
         }
     },
+    mounted() {
+        this.$store.dispatch('loading')
+        this.$rtdbBind('topProductItems',db.ref('products').limitToFirst(4)).then(()=>{
+            this.$store.dispatch('unload')
+        }).catch(err=>{
+            alert(err)
+            this.$store.dispatch('unload')
+        })
+    }
 }
 </script>
 
@@ -79,7 +85,8 @@ export default {
 }
 /* items */
 .sec-3 .top-product .top-product-items {
-    height: 350px;
+    min-height: 350px;
+    height: auto;
     width: 100%;
     display: flex;
     flex-wrap: wrap;

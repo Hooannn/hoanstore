@@ -39,8 +39,8 @@
         <div class="speaker-intro">
             <div class="text">
                 <h3>Speaker</h3>
-                <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel autem dicta eos nostrum,
-                     architecto facilis totam voluptatem nisi fuga omnis eius perspiciatis placeat corrupti minus iusto! Soluta quidem repellendus nemo.
+                <div>
+                    High Quality Speakers for home and on-the-go. Discover the largest range of portable Bluetooth and Wireless Speakers.
                 </div>
                 <button class="btn btn-sm btn-dark">Shop now</button>
             </div>
@@ -53,8 +53,7 @@
                 <div class="text">
                     <h3>Keyboard</h3>
                     <div>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel autem dicta eos nostrum,
-                        architecto facilis
+                        Looking for several mechanical keyboards. Check it now.
                     </div>
                     <button class="btn btn-sm btn-dark">Shop now</button>
                 </div>
@@ -66,8 +65,7 @@
                 <div class="text">
                     <h3>Mouse</h3>
                     <div>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel autem dicta eos nostrum,
-                        architecto facilis
+                        Bluetooth and Wireless mouse from several brand: Logitech, Asus,...
                     </div>
                     <button class="btn btn-sm btn-dark">Shop now</button>
                 </div>
@@ -111,14 +109,18 @@
     <div class="sec-3">
         <top-product/>
     </div>
+    <div class="sec-4">
+        <new-arrival/>
+    </div>
   </div>
 </template>
 
 <script>
 import TopProduct from '@/components/HomeComponent/TopProduct.vue'
 import carousel from 'vue-owl-carousel'
+import NewArrival from '@/components/HomeComponent/NewArrival.vue'
 export default {
-    components: { carousel,TopProduct },
+    components: { carousel, TopProduct, NewArrival },
     data() {
         return {
             key1:1,
@@ -252,11 +254,10 @@ export default {
  /* speaker 1 col 1 row*/
 .home-view div.sec-2 .speaker-intro{
     width: 48%;
-    max-height: 520px;
+    height: 520px;
     background-color: rgb(245, 245, 245,0.5);
     display: flex;
     cursor: pointer;
-    overflow-y: auto;
     text-overflow: ellipsis;
 }
 .home-view div.sec-2 .speaker-intro:hover .text, .home-view div.sec-2 .speaker-intro:hover .image{
@@ -278,10 +279,9 @@ export default {
 }
 .home-view div.sec-2 .gear-intro .keyboard-intro{
     width: 100%;
-    max-height: 250px;
+    height: 250px;
     background-color: rgb(245, 245, 245,0.5);
     display: flex;
-    overflow-y: auto;
     text-overflow: ellipsis;
     cursor: pointer;
 }
@@ -290,8 +290,7 @@ export default {
 }
 .home-view div.sec-2 .gear-intro .mouse-intro{
     width: 100%;
-    max-height: 250px;
-    overflow-y: auto;
+    height: 250px;
     text-overflow: ellipsis;
     background-color: rgb(245, 245, 245,0.5);
     display: flex;
@@ -340,7 +339,14 @@ export default {
     width: 1280px;
     height: 430px;
 }
-
+/* sec-4 */
+.home-view div.sec-4 {
+    margin:0 auto;
+    margin-top:100px;
+    width: 1280px;
+    min-height: 500px;
+    height: auto;
+}
 /*  */
 @media only screen and (min-width: 1280px) {
     .home-view div.sec-1 {
@@ -348,20 +354,20 @@ export default {
     }
 }
 @media only screen and (max-width: 1280px) {
-    .home-view, .home-view div.sec-1, .home-view div.sec-2, .home-view div.sec-3 {
+    .home-view, .home-view div.sec-1, .home-view div.sec-2, .home-view div.sec-3,.home-view div.sec-4 {
         width: 100vw;
         height: auto;
+    }
+    .home-view {
+        padding-top:50px;
     }
 }
 @media only screen and (max-width: 768px) {
-    .home-view {
-        padding-top: 50px;
-    }
-    .home-view, .home-view div.sec-1, .home-view div.sec-2, .home-view div.sec-3 {
+    .home-view, .home-view div.sec-1, .home-view div.sec-2, .home-view div.sec-3,.home-view div.sec-4 {
         width: 100vw;
         height: auto;
     }
-    .home-view div.sec-2, .home-view div.sec-3 {
+    .home-view div.sec-2, .home-view div.sec-3,.home-view div.sec-4 {
         margin-top: 40px;
     }
     .home-view div.sec-1 {
@@ -381,8 +387,12 @@ export default {
         left:50px;
     }
     /* sec -2 */
+    .home-view div.sec-2 .speaker-intro {
+
+    }
     .home-view div.sec-2 .gear-intro, .home-view div.sec-2 .speaker-intro{
         width: 100%;
+        height: auto;
     }
     .home-view div.sec-2 .store-offer {
         flex-direction: column;
@@ -403,5 +413,8 @@ export default {
     .home-view div.sec-2 .gear-intro .keyboard-intro .text div, .home-view div.sec-2 .gear-intro .mouse-intro .text div,.home-view div.sec-2 .speaker-intro .text div{
         font-size: 14px;
     }
+}
+@media only screen and (max-width: 320px) {
+    
 }
 </style>

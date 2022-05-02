@@ -14,6 +14,11 @@ const routes = [
         path:'/home',
         name:'home',
         component:()=>import ('@/views/Home/HomeView.vue')
+      },
+      {
+        path:'/shop/:page',
+        name:'shop',
+        component:()=>import ('@/views/Shop/ShopView.vue')
       }
     ]
   },

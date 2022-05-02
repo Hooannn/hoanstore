@@ -12,7 +12,7 @@
               <span @click='$router.push({name:"home"})' :class='{selected:$route.name=="home"}'>HOME</span> <!-- <ion-icon class='ion-icon' name="chevron-down-outline"></ion-icon> -->
           </div>
           <div class="shop center">
-              <span>SHOP</span> <!-- <ion-icon class='ion-icon' name="chevron-down-outline"></ion-icon> -->
+              <span @click='$router.push({name:"shop",params:{page:1}})'>SHOP</span> <!-- <ion-icon class='ion-icon' name="chevron-down-outline"></ion-icon> -->
           </div>
           <div @mouseover="slide" @mouseout="unslide" style='height:100%' class="about center">
               <span>ABOUT</span><ion-icon class='ion-icon' name="chevron-down-outline"></ion-icon>
@@ -46,8 +46,9 @@
                   <span @click='showNav' class='nb-icon'><ion-icon class='ion-icon' name="menu"></ion-icon></span>
                   <div @click='closeNavMobile_' class="nb-cover">
                       <div class="nb-content">
+                      <div @click='closeNavMobile' class='nb-back center'><ion-icon name="arrow-back-outline"></ion-icon></div>
                       <div @click='$router.push({name:"home"})' :class='{selected:$route.name=="home"}' class="nb-home">HOME</div>
-                      <div class="nb-shop">SHOP</div>
+                      <div @click='$router.push({name:"shop",params:{page:1}})' :class='{selected:$route.name=="shop"}' class="nb-shop">SHOP</div>
                       <div class="nb-about">ABOUT <span class='center' style='fontSize:20px'><ion-icon name="chevron-forward"></ion-icon></span></div>
                       <div class="nb-login"><button style='margin:10px auto' class="btn btn-sm btn-light">LOGIN</button></div>
                       <div class="nb-account">
@@ -84,6 +85,14 @@ export default {
         }
     },
     methods: {
+        closeNavMobile() {
+            let cover=document.querySelector('.nav-bar .nav-control .nav-mobile .nb-cover')
+            let nav=document.querySelector('.nav-bar .nav-control .nav-mobile .nb-cover .nb-content')
+            nav.classList.remove('show')
+            setTimeout(function(){
+                cover.classList.remove('show')
+            },300)
+        },
         closeNavMobile_(e) {
             let cover=document.querySelector('.nav-bar .nav-control .nav-mobile .nb-cover')
             let nav=document.querySelector('.nav-bar .nav-control .nav-mobile .nb-cover .nb-content')
@@ -264,6 +273,18 @@ export default {
     color:white;
     z-index: 10;
     transition:.3s linear;
+}
+.nav-bar .nav-control .nav-mobile .nb-cover .nb-back {
+    cursor: pointer;
+    width: 100%;
+    font-size: 17px;
+    padding:0 10px;
+    height: 25px;
+    background-color:black;
+}
+.nav-bar .nav-control .nav-mobile .nb-cover .nb-back:hover {
+    background-color:white;
+    color:black;
 }
 .nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-home,.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-shop,.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-about,.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-login {
     font-weight: lighter;

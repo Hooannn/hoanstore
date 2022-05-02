@@ -55,7 +55,7 @@ export default {
 </script>
 
 <style>
-.sec-3 .top-product .top-product-items .top-product-item {
+.top-product-item {
     width: 280px;
     height: 320px;
     display: flex;
@@ -64,12 +64,12 @@ export default {
     justify-content: space-between;
     position: relative;
 }
-.sec-3 .top-product .top-product-items .top-product-item:hover .tpi-control{
+.top-product-item:hover .tpi-control{
     transform: translateY(-75px);
     opacity: 1;
     visibility: visible;
 }
-.sec-3 .top-product .top-product-items .top-product-item .tpi-control{
+.top-product-item .tpi-control{
     background-color: white;
     box-shadow: 1px 1px 2px rgb(0, 0, 0,0.3);
     width: 200px;
@@ -85,7 +85,7 @@ export default {
     border-radius: 5px;
     z-index: 500;
 }
-.sec-3 .top-product .top-product-items .top-product-item .tpi-control>div{
+.top-product-item .tpi-control>div{
     box-shadow: 2px 2px 1px rgb(0, 0, 0,0.1);
     padding:15px;
     height: 40px;
@@ -94,12 +94,12 @@ export default {
     transition: .2s ease-in-out;
     font-size: 20px;
 }
-.sec-3 .top-product .top-product-items .top-product-item .tpi-control>div:hover{
+.top-product-item .tpi-control>div:hover{
     background-color:orange;
     color:white;
     box-shadow: none;
 }
-.sec-3 .top-product .top-product-items .top-product-item .tpi-image{
+.top-product-item .tpi-image{
     width: 250px;
     height: 250px;
     overflow: hidden;
@@ -107,7 +107,7 @@ export default {
     box-shadow: 0 0 1px 0.5px gainsboro;
     cursor: pointer;
 }
-.sec-3 .top-product .top-product-items .top-product-item .tpi-image img{
+.top-product-item .tpi-image img{
     width: 100%;
     height: 100%;
     object-fit: cover;
