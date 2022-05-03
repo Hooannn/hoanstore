@@ -16,11 +16,11 @@
               </div>
               <div class="nav-info-control">
                   <div style='display:flex;flexDirection:column;alignItems:center;justifyContent:space-around'>
-                      <div class='center'><ion-icon class='center' name="cart-outline"></ion-icon></div>
+                      <div @click='addCart' class='center'><ion-icon class='center' name="cart-outline"></ion-icon></div>
                       <span>BUY NOW</span>
                   </div>
                   <div style='display:flex;flexDirection:column;alignItems:center;justifyContent:space-around'>
-                      <div class='center'><ion-icon class='center' name="heart-outline"></ion-icon></div>
+                      <div @click='addWishlist' class='center'><ion-icon class='center' name="heart-outline"></ion-icon></div>
                       <span>WISHLIST</span>
                   </div>
                   <div style='display:flex;flexDirection:column;alignItems:center;justifyContent:space-around'>
@@ -59,6 +59,54 @@ export default {
                 let modal=document.querySelector('#app > div.short-view-product.center')
                 modal.classList.add('show')
             },100)
+        },
+        addCart() {
+            this.$bvModal.msgBoxConfirm('Add this item to your cart ?',{
+                    title: 'Confirm',
+                    size: 'sm',
+                    buttonSize: 'sm',
+                    okVariant: 'success',
+                    okTitle: 'Confirm',
+                    cancelTitle: 'Cancle',
+                    footerClass: 'p-2',
+                    hideHeaderClose: true,
+                    centered: true
+                }) 
+                .then(value => {
+                    if (value==true) {
+                        this.$store.dispatch('addCart',{key:this.product.key})
+                        this.$bvToast.show('success')
+                    }
+                })
+                .catch(err => {
+                    if (err==false) {
+                        return
+                    }
+                })
+        },
+        addWishlist() {
+            this.$bvModal.msgBoxConfirm('Add this item to your wishlist ?',{
+                    title: 'Confirm',
+                    size: 'sm',
+                    buttonSize: 'sm',
+                    okVariant: 'success',
+                    okTitle: 'Confirm',
+                    cancelTitle: 'Cancle',
+                    footerClass: 'p-2',
+                    hideHeaderClose: true,
+                    centered: true
+                }) 
+                .then(value => {
+                    if (value==true) {
+                        this.$store.dispatch('addWishlist',{key:this.product.key})
+                        this.$bvToast.show('success')
+                    }
+                })
+                .catch(err => {
+                    if (err==false) {
+                        return
+                    }
+                })
         }
     }
 }

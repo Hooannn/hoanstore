@@ -28,20 +28,22 @@
                         <div class='center' @click='kswitch="brown"' style='boxShadow:1px 1px 1px rgba(0,0,0,0.5);fontSize:20px;cursor:pointer;borderRadius:3px;backgroundColor:brown;width:30px;height:30px;margin:0 5px'><i style='color:white;fontWeight:bolder;' v-if='kswitch=="brown"' class="fas fa-check center"></i></div>
                     </div>
                 </div>
+                <span v-if='$store.state.product.type=="keyboard"' style='color:red;fontSize:13px;fontWeight:light;padding:0;margin:0'>{{err1}}</span>
                 <div class='pd-info-color'>
                     <span>Color</span>
                     <div>
                         <div v-for='(clor) in $store.state.product.color' :key='clor' class='center' @click='color=clor' :style='{backgroundColor:clor}' style='boxShadow:1px 1px 1px rgba(0,0,0,0.5);fontSize:20px;cursor:pointer;borderRadius:3px;width:30px;height:30px;margin:0 5px'><i style='color:white;fontWeight:bolder;' v-if='color==clor && clor!="whitesmoke"' class="fas fa-check center"></i><i style='color:black;fontWeight:bolder;' v-if='color==clor && clor=="whitesmoke"' class="fas fa-check center"></i></div>
                     </div>
                 </div>
+                <span style='color:red;fontSize:13px;fontWeight:light;padding:0;margin:0'>{{err2}}</span>
                 <div class='quantity-select center'>
                     <i @click='removeQty' class="fas fa-minus icon center"></i>
                     <input disabled v-model="quantity" type="number">
                     <i @click='addQty' class="fas fa-plus icon center"></i>
                 </div>
                 <div >
-                    <button style='width:110px;margin:0 5px' class="btn btn-sm btn-dark">ADD TO CART</button>
-                    <button style='width:100px;margin:0 5px' class="btn btn-sm btn-danger">WISHLIST</button>
+                    <button @click='addCart' style='width:110px;margin:0 5px' class="btn btn-sm btn-dark">ADD TO CART</button>
+                    <button @click='addWishlist' style='width:100px;margin:0 5px' class="btn btn-sm btn-danger">WISHLIST</button>
                 </div>
                 <div class='pd-info-share'>
                     <span>Share:</span>
@@ -65,20 +67,43 @@ export default {
         return {
             quantity:1,
             kswitch:'',
-            color:''
+            color:'',
+            err1:'',
+            err2:'',
+        }
+    },
+    watch: {
+        color(e) {
+            if (e!='') {
+                this.err2=''
+            }
+        },
+        kswitch(e){
+            if (e!='') {
+                this.err1=''
+            }
         }
     },
     methods:{
+        reset() {
+            this.err1=''
+            this.err2=''
+            this.kswitch=''
+            this.color=''
+            this.quantity=1
+        },
         close_(e) {
             let modal=document.querySelector('#app > div.short-view-product')
             if (e.target==modal) {
                 modal.classList.remove('show')
                 store.state.product=null
+                this.reset()
             }
         },
         close() {
             let modal=document.querySelector('#app > div.short-view-product.show')
             modal.classList.remove('show')
+            this.reset()
         },
         addQty() {
             this.quantity++
@@ -88,6 +113,86 @@ export default {
             if (this.quantity==0) {
                 this.quantity=1
             }
+        },
+        addCart() {
+            if (this.$store.state.product.type=='keyboard') {
+                if (this.kswitch=='') {
+                    this.err1='Please select switch first.'
+                }
+                if (this.color=='') {
+                    this.err2='Please select color first.'
+                }
+                if (this.err1!=''||this.err2!='') {
+                    return
+                }
+            }
+            if (this.color=='') {
+                this.err2='Please select color first.'
+                return
+            }
+            this.$bvModal.msgBoxConfirm(`Add this item to your cart ? (Quantity:${this.quantity})`,{
+                    title: 'Confirm',
+                    size: 'sm',
+                    buttonSize: 'sm',
+                    okVariant: 'success',
+                    okTitle: 'Confirm',
+                    cancelTitle: 'Cancle',
+                    footerClass: 'p-2',
+                    hideHeaderClose: true,
+                    centered: true
+                }) 
+                .then(value => {
+                    if (value==true) {
+                        let item
+                        if (this.$store.state.product.type=="keyboard") {
+                            item={
+                                key:this.$store.state.product.key,
+                                quantity:this.quantity,
+                                kswitch:this.kswitch,
+                                color:this.color
+                            }
+                        }
+                        else {
+                            item={
+                                key:this.$store.state.product.key,
+                                quantity:this.quantity,
+                                color:this.color
+                            }
+                        }
+                        this.$store.dispatch('addCart',item)
+                        this.$bvToast.show('success')
+                        this.reset()
+                    }
+                })
+                .catch(err => {
+                    if (err==false) {
+                        return
+                    }
+                })
+        },
+        addWishlist() {
+            this.$bvModal.msgBoxConfirm('Add this item to your wishlist ?',{
+                    title: 'Confirm',
+                    size: 'sm',
+                    buttonSize: 'sm',
+                    okVariant: 'success',
+                    okTitle: 'Confirm',
+                    cancelTitle: 'Cancle',
+                    footerClass: 'p-2',
+                    hideHeaderClose: true,
+                    centered: true
+                }) 
+                .then(value => {
+                    if (value==true) {
+                        this.$store.dispatch('addWishlist',{key:this.$store.state.product.key})
+                        this.$bvToast.show('success')
+                    }
+                })
+                .catch(err => {
+                    if (err==false) {
+                        return
+                    }
+                })
         }
     },
 }
@@ -106,7 +211,7 @@ export default {
     position: fixed;
     top:0;
     left:0;
-    z-index: 9999;
+    z-index: 1000;
     visibility: hidden;
     opacity: 0;
     transition: .2s linear;

@@ -32,12 +32,12 @@
           </div>
           <div class="nav-control">
               <div style='position:relative' class="wish-list">
-                  <div style='height:17px;width:17px;position:absolute;right:-5px;bottom:3px;backgroundColor:orange;color:white;borderRadius:50%;fontSize:11px;zIndex:5' class="quantity center">0</div>
+                  <div v-if='$store.state.cart.wishlist.length>0' style='height:17px;width:17px;position:absolute;right:-5px;bottom:3px;backgroundColor:orange;color:white;borderRadius:50%;fontSize:11px;zIndex:5' class="quantity center">{{$store.state.cart.wishlist.length}}</div>
                   <ion-icon class='ion-icon' name="heart-outline"></ion-icon>
               </div>
               <div style='position:relative' class="cart">
-                  <div style='height:17px;width:17px;position:absolute;right:-5px;bottom:3px;backgroundColor:orange;color:white;borderRadius:50%;fontSize:11px;zIndex:5' class="quantity center">0</div>
-                  <ion-icon class='ion-icon' name="cart-outline"></ion-icon>
+                  <div v-if='$store.state.cart.cart.length>0' style='height:17px;width:17px;position:absolute;right:-5px;bottom:3px;backgroundColor:orange;color:white;borderRadius:50%;fontSize:11px;zIndex:5' class="quantity center">{{$store.state.cart.cart.length}}</div>
+                  <ion-icon @click='showCart' class='ion-icon' name="cart-outline"></ion-icon>
               </div>
               <div class="search">
                   <ion-icon class='ion-icon' name="search-outline"></ion-icon>
@@ -85,6 +85,12 @@ export default {
         }
     },
     methods: {
+        showCart() {
+            let cart=document.querySelector('#app > div.cart-bar')
+            let cartC=document.querySelector('#app > div.cart-bar > div.cb-content')
+            cart.classList.toggle('show')
+            cartC.classList.toggle('show')
+        },
         closeNavMobile() {
             let cover=document.querySelector('.nav-bar .nav-control .nav-mobile .nb-cover')
             let nav=document.querySelector('.nav-bar .nav-control .nav-mobile .nb-cover .nb-content')
@@ -264,7 +270,7 @@ export default {
     width: 320px;
 }
 .nav-bar .nav-control .nav-mobile .nb-cover .nb-content{
-    position: fixed;
+    position: absolute;
     top:0;
     right: 0;
     width: 0;

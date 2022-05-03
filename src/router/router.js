@@ -19,7 +19,12 @@ const routes = [
         path:'/shop/:page',
         name:'shop',
         component:()=>import ('@/views/Shop/ShopView.vue')
-      }
+      },
+      {
+        path:'/product/:key',
+        name:'product',
+        component:()=>import ('@/views/Product/ProductView.vue')
+      },
     ]
   },
 ]

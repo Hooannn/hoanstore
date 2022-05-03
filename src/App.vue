@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+    <cart-bar/>
+    
+    <toastes-container/>
     <loading-view/>
     <short-view-modal/>
     <noti-sale-modal/>
@@ -17,8 +20,10 @@ import NotiSaleModal from './components/Modal/NotiSaleModal.vue'
 import FooterBar from './components/Navigation/FooterBar.vue'
 import NavigationCom from './components/Navigation/NavigationCom.vue'
 import LoadingView from './views/LoadingView.vue'
+import ToastesContainer from './ToastesContainer.vue'
+import CartBar from './components/Cart/CartBar.vue'
 export default {
-  components: { NavBar, ShortViewModal, NotiSaleModal, FooterBar, NavigationCom, LoadingView },
+  components: { NavBar, ShortViewModal, NotiSaleModal, FooterBar, NavigationCom, LoadingView, ToastesContainer, CartBar },
   
 }
 </script>
@@ -63,6 +68,12 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding:5px;
 }
 /*  */
 @media only screen and (max-width: 768px) {

@@ -4,7 +4,7 @@ const product = {
     }),
     mutations: { 
         
-     },
+    },
     actions: { 
         
     },

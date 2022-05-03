@@ -1,14 +1,14 @@
 <template>
-  <div class="top-product-item">
+  <div @click='viewDetail' class="top-product-item">
       <div class="tpi-control">
-          <div class='center'>
-              <ion-icon name="heart"></ion-icon>
+          <div @click='addWishlist' class='center heart'>
+              <ion-icon style='pointerEvents:none' name="heart"></ion-icon>
           </div>
-          <div class='center'>
-              <ion-icon name="cart"></ion-icon>
+          <div @click='addCart' class='center cart'>
+              <ion-icon style='pointerEvents:none' name="cart"></ion-icon>
           </div>
-          <div @click='shortView' class='center'>
-              <ion-icon name="eye"></ion-icon>
+          <div @click='shortView' class='center eye'>
+              <ion-icon style='pointerEvents:none' name="eye"></ion-icon>
           </div>
       </div>
       
@@ -49,6 +49,66 @@ export default {
                 let modal=document.querySelector('#app > div.short-view-product.center')
                 modal.classList.add('show')
             },100)
+        },
+        viewDetail(e) {
+            let heart=document.querySelector(`div.top-product-item.${this.product.key} > div.tpi-control > div.center.heart`)
+            let cart=document.querySelector(`div.top-product-item.${this.product.key} > div.tpi-control > div.center.cart`)
+            let eye=document.querySelector(`div.top-product-item.${this.product.key} > div.tpi-control > div.center.eye`)
+            let control=document.querySelector(`div.top-product-item.${this.product.key} > div.tpi-control`)
+            if (e.target == heart || e.target==cart || e.target==eye || e.target==control) {
+                return
+            }
+            else {
+                this.$router.push({name:"product",params:{key:this.product.key}})
+            }
+        },
+        addCart() {
+            this.$bvModal.msgBoxConfirm('Add this item to your cart ?',{
+                    title: 'Confirm',
+                    size: 'sm',
+                    buttonSize: 'sm',
+                    okVariant: 'success',
+                    okTitle: 'Confirm',
+                    cancelTitle: 'Cancle',
+                    footerClass: 'p-2',
+                    hideHeaderClose: true,
+                    centered: true
+                }) 
+                .then(value => {
+                    if (value==true) {
+                        this.$store.dispatch('addCart',{key:this.product.key})
+                        this.$bvToast.show('success')
+                    }
+                })
+                .catch(err => {
+                    if (err==false) {
+                        return
+                    }
+                })
+        },
+        addWishlist() {
+            this.$bvModal.msgBoxConfirm('Add this item to your wishlist ?',{
+                    title: 'Confirm',
+                    size: 'sm',
+                    buttonSize: 'sm',
+                    okVariant: 'success',
+                    okTitle: 'Confirm',
+                    cancelTitle: 'Cancle',
+                    footerClass: 'p-2',
+                    hideHeaderClose: true,
+                    centered: true
+                }) 
+                .then(value => {
+                    if (value==true) {
+                        this.$store.dispatch('addWishlist',{key:this.product.key})
+                        this.$bvToast.show('success')
+                    }
+                })
+                .catch(err => {
+                    if (err==false) {
+                        return
+                    }
+                })
         }
     },
 }
@@ -83,7 +143,7 @@ export default {
     opacity: 0;
     transition: .3s linear;
     border-radius: 5px;
-    z-index: 500;
+    z-index: 100;
 }
 .top-product-item .tpi-control>div{
     box-shadow: 2px 2px 1px rgb(0, 0, 0,0.1);
