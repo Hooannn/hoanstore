@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <cart-bar/>
-    
+    <wishlist-bar/>
     <toastes-container/>
     <loading-view/>
     <short-view-modal/>
@@ -20,23 +20,20 @@ import NotiSaleModal from './components/Modal/NotiSaleModal.vue'
 import FooterBar from './components/Navigation/FooterBar.vue'
 import NavigationCom from './components/Navigation/NavigationCom.vue'
 import LoadingView from './views/LoadingView.vue'
-import ToastesContainer from './ToastesContainer.vue'
 import CartBar from './components/Cart/CartBar.vue'
+import WishlistBar from './components/Wishlist/WishlistBar.vue'
 export default {
-  components: { NavBar, ShortViewModal, NotiSaleModal, FooterBar, NavigationCom, LoadingView, ToastesContainer, CartBar },
-  
+  components: { NavBar, ShortViewModal, NotiSaleModal, FooterBar, NavigationCom, LoadingView, CartBar, WishlistBar },
 }
 </script>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Lato&family=Poppins:wght@200;400&display=swap');
-
-::-webkit-scrollbar {
-  display: none;
+/*  scroll bar style */
+::-webkit-scrollbar{
+  display:none;
 }
-.container {
-  padding: 0;
-}
+/*  scroll bar style */
 body {
   margin: 0;
   padding: 0;

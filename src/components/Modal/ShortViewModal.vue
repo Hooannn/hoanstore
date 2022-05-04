@@ -160,7 +160,6 @@ export default {
                             }
                         }
                         this.$store.dispatch('addCart',item)
-                        this.$bvToast.show('success')
                         this.reset()
                     }
                 })
@@ -184,8 +183,12 @@ export default {
                 }) 
                 .then(value => {
                     if (value==true) {
-                        this.$store.dispatch('addWishlist',{key:this.$store.state.product.key})
-                        this.$bvToast.show('success')
+                        if(this.$store.state.cart.wishlist.find(item=>item.key==this.$store.state.product.key)) {
+                            return
+                        }
+                        else {
+                            this.$store.dispatch('addWishlist',{key:this.$store.state.product.key})
+                        }
                     }
                 })
                 .catch(err => {

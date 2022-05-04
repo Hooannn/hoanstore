@@ -6,7 +6,7 @@
             <div :key='key1' class='sales-intro'>
                 <h1 >FESTIVAL SALE</h1>
                 <h4 >Up to 50%</h4>
-                <button class="btn btn btn-light">Shop now</button>
+                <button @click='$router.push({name:"shop",params:{page:1}})' class="btn btn btn-light">Shop now</button>
             </div>
             <img src="https://wallpaperaccess.com/full/4525282.jpg" >
         </div>
@@ -14,14 +14,14 @@
             <div :key='key2' class='sales-intro'>
                 <h1 style='color:orange'>NEW COLLECTIONS</h1>
                 <h5 style='fontStyle:italic'>With high quality</h5>
-                <button class="btn btn btn-light">Shop now</button>
+                <button @click='$router.push({name:"shop",params:{page:1}})' class="btn btn btn-light">Shop now</button>
             </div>
             <img src="https://wallpaperaccess.com/full/7069726.jpg" >
         </div>
         <div class="product-intro-3">
             <div :key='key3' class='sales-intro'>
                 <h1 >TRENDING</h1><h1 style='color:black'>GEAR</h1>
-                <button class="btn btn btn-light">Shop now</button>
+                <button @click='$router.push({name:"shop",params:{page:1}})' class="btn btn btn-light">Shop now</button>
             </div>
             <img src="https://wallpaperaccess.com/full/903122.jpg" >
         </div>
@@ -29,7 +29,7 @@
             <div :key='key4' class='sales-intro'>
                 <h1 style='color:orangered'>VISIT OUR STORE </h1>
                 <h4 style='color:white'>NOW</h4>
-                <button class="btn btn btn-light">Shop now</button>
+                <button @click='$router.push({name:"shop",params:{page:1}})' class="btn btn btn-light">Shop now</button>
             </div>
             <img src="https://wallpaperaccess.com/full/5270765.jpg" >
         </div>
@@ -42,7 +42,7 @@
                 <div>
                     High Quality Speakers for home and on-the-go. Discover the largest range of portable Bluetooth and Wireless Speakers.
                 </div>
-                <button class="btn btn-sm btn-dark">Shop now</button>
+                <button @click='$router.push({name:"shop",params:{page:1}})' class="btn btn-sm btn-dark">Shop now</button>
             </div>
             <div class="image">
                 <img style='width:100%;height:100%;' src="https://www.pngall.com/wp-content/uploads/4/Portable-Speaker-PNG-HD-Image.png">
@@ -55,7 +55,7 @@
                     <div>
                         Looking for several mechanical keyboards. Check it now.
                     </div>
-                    <button class="btn btn-sm btn-dark">Shop now</button>
+                    <button @click='$router.push({name:"shop",params:{page:1}})' class="btn btn-sm btn-dark">Shop now</button>
                 </div>
                 <div class="image">
                     <img style='width:100%;height:100%;' src="https://imgkub.com/images/2022/04/30/images-removebg-preview-1.png">
@@ -67,7 +67,7 @@
                     <div>
                         Bluetooth and Wireless mouse from several brand: Logitech, Asus,...
                     </div>
-                    <button class="btn btn-sm btn-dark">Shop now</button>
+                    <button @click='$router.push({name:"shop",params:{page:1}})' class="btn btn-sm btn-dark">Shop now</button>
                 </div>
                 <div class="image">
                     <img style='width:100%;height:100%;' src="https://imgkub.com/images/2022/04/30/images-removebg-preview-2.png">

@@ -6,7 +6,7 @@
                 <h3>SUMMER SALE</h3>
                 <h4>UP TO 49%</h4>
                 <div>from 21/5/2022 - 21/5/2030</div>
-                <button >Check it now <i style='transition:.2s linear' class="fas fa-angle-double-right"></i></button>
+                <button @click='$router.push({name:"shop",params:{page:1}}),close()'>Check it now <i style='transition:.2s linear' class="fas fa-angle-double-right"></i></button>
             </div>
       </div>
   </div>

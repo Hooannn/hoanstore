@@ -33,7 +33,7 @@
           <div class="nav-control">
               <div style='position:relative' class="wish-list">
                   <div v-if='$store.state.cart.wishlist.length>0' style='height:17px;width:17px;position:absolute;right:-5px;bottom:3px;backgroundColor:orange;color:white;borderRadius:50%;fontSize:11px;zIndex:5' class="quantity center">{{$store.state.cart.wishlist.length}}</div>
-                  <ion-icon class='ion-icon' name="heart-outline"></ion-icon>
+                  <ion-icon @click='showWishlist' class='ion-icon' name="heart-outline"></ion-icon>
               </div>
               <div style='position:relative' class="cart">
                   <div v-if='$store.state.cart.cart.length>0' style='height:17px;width:17px;position:absolute;right:-5px;bottom:3px;backgroundColor:orange;color:white;borderRadius:50%;fontSize:11px;zIndex:5' class="quantity center">{{$store.state.cart.cart.length}}</div>
@@ -85,6 +85,12 @@ export default {
         }
     },
     methods: {
+        showWishlist() {
+            let wishlist=document.querySelector('#app > div.wishlist-bar')
+            let wishlistC=document.querySelector('#app > div.wishlist-bar > div.wb-content')
+            wishlist.classList.toggle('show')
+            wishlistC.classList.toggle('show')
+        },
         showCart() {
             let cart=document.querySelector('#app > div.cart-bar')
             let cartC=document.querySelector('#app > div.cart-bar > div.cb-content')
