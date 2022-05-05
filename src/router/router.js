@@ -25,7 +25,27 @@ const routes = [
         name:'product',
         component:()=>import ('@/views/Product/ProductView.vue')
       },
+      {
+        path:'/cart',
+        name:'cart',
+        component:()=>import ('@/views/Cart/CartView.vue')
+      },
+      {
+        path:'/wishlist',
+        name:'wishlist',
+        component:()=>import ('@/views/Wishlist/WishlistView.vue')
+      },
+      {
+        path:'/payment',
+        name:'payment',
+        component:()=>import ('@/views/Payment/PaymentView.vue')
+      },
     ]
+  },
+  {
+    path: "*",
+    name: "error",
+    component: () => import('../ErrorView.vue')
   },
 ]
 

@@ -45,6 +45,9 @@
                   <div class="bf-copyright">
                     <span style='color:white'><i class="fas fa-copyright"></i> CopyRight 2022 <span style='color:orange;fontWeight:bolder'>hoanthui's Store</span></span>
                   </div>
+                  <div style='color:white;fontWeight:lighter' class="bf-inspired">
+                      Inspired by <a target='_black' href="https://andshop-vue.netlify.app/">https://andshop-vue.netlify.app</a>
+                  </div>
                   <div style='width:100px;display:flex;justifyContent:space-between;alignItems:center' class="bf-supported">
                     <span class='center' style='color:#454892;fontSize:24px'><ion-icon name="logo-paypal"></ion-icon></span>
                     <span class='center' style='color:white;fontSize:24px'><ion-icon name="logo-alipay"></ion-icon></span>

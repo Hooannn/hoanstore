@@ -5,19 +5,16 @@
         <div class="cbc-title center">
           <span>SHOPPING CART</span>
         </div>
-        <div :key='$store.state.cart.cart.length' class="cbc-items">
-          <cart-bar-item v-for='(item,index) in $store.state.cart.cart' :key='index' :item='item' :index='index' :class='"cbi"+index'/>
+        <div :key='"cb"+$store.state.cart.cart.length' class="cbc-items">
+          <cart-bar-item v-for='(item,index) in $store.state.cart.cart' :key='"cbi"+$store.state.cart.cart.length+index+$store.state.cart.rstKey' :item='item' :index='index' :class='"cbi"+index'/>
         </div>
         <div style='padding:10px;fontSize:15px;' v-if='$store.state.cart.cart.length==0'>
             Your shopping cart is empty.
         </div>
-        <div v-if='$store.state.cart.cart.length>0' style='justifyContent:space-between' class="cbc-cost center">
-            <div style='fontWeight:bolder;padding:0 10px;'>TOTAL:</div>
-            <div style='padding:0 10px;color:orangered;fontSize:19px'>${{subtotal}}</div> 
-        </div>
+        <cart-bar-total :key='"cbt"+$store.state.cart.cart.length+$store.state.cart.rstKey' v-if='$store.state.cart.cart.length>0' style='justifyContent:space-between' class="cbc-cost center"/>
         <div v-if='$store.state.cart.cart.length>0' style='justifyContent:space-around;margin:25px 0;' class="cbc-control center">
-            <button onMouseOut='this.style.backgroundColor="black"' onMouseOver='this.style.backgroundColor="rgba(0,0,0,0.7)"' style='outline:none;border:none;backgroundColor:black;color:white;fontWeight:light;fontSize:15px;boxShadow:0 0 2px rgba(0,0,0,0.5);width:40%;height:40px;'>VIEW CART</button>
-            <button onMouseOut='this.style.backgroundColor="black"' onMouseOver='this.style.backgroundColor="rgba(0,0,0,0.7)"' style='outline:none;border:none;backgroundColor:black;color:white;fontWeight:light;fontSize:15px;boxShadow:0 0 2px rgba(0,0,0,0.5);width:40%;height:40px;'>PAYMENT</button>
+            <button @click='$router.push({name:"cart"}),close()' onMouseOut='this.style.backgroundColor="black"' onMouseOver='this.style.backgroundColor="rgba(0,0,0,0.7)"' style='outline:none;border:none;backgroundColor:black;color:white;fontWeight:light;fontSize:15px;boxShadow:0 0 2px rgba(0,0,0,0.5);width:40%;height:40px;'>VIEW CART</button>
+            <button @click='$router.push({name:"payment"},close())' onMouseOut='this.style.backgroundColor="black"' onMouseOver='this.style.backgroundColor="rgba(0,0,0,0.7)"' style='outline:none;border:none;backgroundColor:black;color:white;fontWeight:light;fontSize:15px;boxShadow:0 0 2px rgba(0,0,0,0.5);width:40%;height:40px;'>PAYMENT</button>
         </div>
       </div>
   </div>
@@ -25,13 +22,9 @@
 
 <script>
 import CartBarItem from '@/components/Cart/CartBarItem.vue'
+import CartBarTotal from './CartBarTotal.vue'
 export default {
-    components:{CartBarItem},
-    data() {
-        return {
-            subtotal:0,
-        }
-    },
+    components:{CartBarItem, CartBarTotal},
     methods:{
         close() {
             let cart=document.querySelector('#app > div.cart-bar')
@@ -52,17 +45,25 @@ export default {
             }
         },
     },
+    /*
     watch:{
         '$store.state.cart.cart'() {
             this.subtotal=0
             this.$store.state.cart.cart.forEach(item => {
-                console.log(item)
-                if (item.subtotal) {
-                    this.subtotal+=item.subtotal
+                if (item.quantity&&item.price) {
+                    this.subtotal+=item.quantity*item.price
                 }
             });
         }
+    },
+    mounted() {
+        this.$store.state.cart.cart.forEach(item => {
+            if (item.quantity&&item.price) {
+                this.subtotal+=item.quantity*item.price
+            }
+        });
     }
+    */
 }
 </script>
 

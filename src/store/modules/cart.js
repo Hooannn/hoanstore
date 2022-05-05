@@ -1,6 +1,15 @@
 const cart = {
     state: () => ({ 
       cart:[],
+      orderInformation:{
+        name:'',
+        email:'',
+        phone:'',
+        address:'',
+      },
+      cartTotal:0,
+      rstKey:0,
+      description:"",
       wishlist:[],
     }),
     mutations: { 

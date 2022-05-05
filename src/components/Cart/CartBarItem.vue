@@ -34,12 +34,34 @@ export default {
   },
   filters:{
     upperFirstCase(string) {
-      return string[0].toUpperCase() + string.substring(1)
+      if (string) {
+        return string[0].toUpperCase() + string.substring(1)
+      }
     }
   },
   methods: {
     removeItem() {
-      this.$store.state.cart.cart.splice(this.index,1)
+      this.$bvModal.msgBoxConfirm(`Remove this item from your cart ?`,{
+                    title: 'Remove',
+                    size: 'sm',
+                    buttonSize: 'sm',
+                    okVariant: 'danger',
+                    okTitle: 'Remove',
+                    cancelTitle: 'Cancle',
+                    footerClass: 'p-2',
+                    hideHeaderClose: true,
+                    centered: true
+                }) 
+                .then(value => {
+                    if (value==true) {
+                        this.$store.state.cart.cart.splice(this.index,1)
+                    }
+                })
+                .catch(err => {
+                    if (err==false) {
+                        return
+                    }
+                })
       //let cbi=document.querySelector(`#app > div.cart-bar.show > div > div.cbc-items > div.cart-bar-item.cbi${this.index}`)
       //cbi.remove()
     }
@@ -71,8 +93,12 @@ export default {
           this.cartItem.color=this.product.color[0]
         }
       }
-      let subtotal=this.cartItem.quantity*parseInt(this.cartItem.price,10)
-      this.$store.state.cart.cart[this.index].subtotal=subtotal
+      this.$store.state.cart.cart[this.index].quantity=this.cartItem.quantity
+      this.$store.state.cart.cart[this.index].title=this.cartItem.title
+      this.$store.state.cart.cart[this.index].kswitch=this.cartItem.kswitch
+      this.$store.state.cart.cart[this.index].color=this.cartItem.color
+      this.$store.state.cart.cart[this.index].price=this.cartItem.price
+      this.$store.state.cart.cart[this.index].image=this.cartItem.image
   }
 }
 </script>

@@ -7,8 +7,8 @@
     <short-view-modal/>
     <noti-sale-modal/>
     <nav-bar/>
-    <navigation-com v-if="$route.name!='home'"/>
-    <router-view :key='$route.fullPath'/>
+    <navigation-com :key='"navc"+$route.path' v-if="$route.name!='home'"/>
+    <router-view :key='"main"+$route.fullPath'/>
     <footer-bar/>
   </div>
 </template>

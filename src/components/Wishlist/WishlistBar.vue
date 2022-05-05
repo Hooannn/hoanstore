@@ -12,7 +12,7 @@
             Your wishlist is empty.
         </div>
         <div v-if='$store.state.cart.wishlist.length>0' style='justifyContent:space-around;marginTop:25px;' class="wbc-control center">
-            <button onMouseOut='this.style.backgroundColor="black"' onMouseOver='this.style.backgroundColor="rgba(0,0,0,0.7)"' style='outline:none;border:none;backgroundColor:black;color:white;fontWeight:light;fontSize:15px;boxShadow:0 0 2px rgba(0,0,0,0.5);width:40%;height:40px;'>VIEW WISHLIST</button>
+            <button @click='$router.push({name:"wishlist"}),close()' onMouseOut='this.style.backgroundColor="black"' onMouseOver='this.style.backgroundColor="rgba(0,0,0,0.7)"' style='outline:none;border:none;backgroundColor:black;color:white;fontWeight:light;fontSize:15px;boxShadow:0 0 2px rgba(0,0,0,0.5);width:40%;height:40px;'>VIEW WISHLIST</button>
         </div>
       </div>
   </div>

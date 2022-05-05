@@ -35,7 +35,27 @@ export default {
   },
   methods: {
     removeItem() {
-      this.$store.state.cart.wishlist.splice(this.index,1)
+      this.$bvModal.msgBoxConfirm(`Remove this item from your wishlist ?`,{
+                    title: 'Remove',
+                    size: 'sm',
+                    buttonSize: 'sm',
+                    okVariant: 'danger',
+                    okTitle: 'Remove',
+                    cancelTitle: 'Cancle',
+                    footerClass: 'p-2',
+                    hideHeaderClose: true,
+                    centered: true
+                }) 
+                .then(value => {
+                    if (value==true) {
+                        this.$store.state.cart.wishlist.splice(this.index,1)
+                    }
+                })
+                .catch(err => {
+                    if (err==false) {
+                        return
+                    }
+                })
       //let wbi=document.querySelector(`#app > div.wishlist-bar.show > div > div.cbc-items > div.wishlist-bar-item.wbi${this.index}`)
       //wbi.remove()
     }

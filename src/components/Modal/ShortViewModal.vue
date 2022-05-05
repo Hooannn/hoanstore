@@ -32,7 +32,7 @@
                 <div class='pd-info-color'>
                     <span>Color</span>
                     <div>
-                        <div v-for='(clor) in $store.state.product.color' :key='clor' class='center' @click='color=clor' :style='{backgroundColor:clor}' style='boxShadow:1px 1px 1px rgba(0,0,0,0.5);fontSize:20px;cursor:pointer;borderRadius:3px;width:30px;height:30px;margin:0 5px'><i style='color:white;fontWeight:bolder;' v-if='color==clor && clor!="whitesmoke"' class="fas fa-check center"></i><i style='color:black;fontWeight:bolder;' v-if='color==clor && clor=="whitesmoke"' class="fas fa-check center"></i></div>
+                        <div v-for='(clor) in $store.state.product.color' :key='clor' class='center' @click='color=clor' :style='{backgroundColor:clor}' style='boxShadow:1px 1px 1px rgba(0,0,0,0.5);fontSize:20px;cursor:pointer;borderRadius:3px;width:30px;height:30px;margin:0 5px'><i style='color:white;fontWeight:bolder;' v-if='color==clor && clor!="white"' class="fas fa-check center"></i><i style='color:black;fontWeight:bolder;' v-if='color==clor && clor=="white"' class="fas fa-check center"></i></div>
                     </div>
                 </div>
                 <span style='color:red;fontSize:13px;fontWeight:light;padding:0;margin:0'>{{err2}}</span>

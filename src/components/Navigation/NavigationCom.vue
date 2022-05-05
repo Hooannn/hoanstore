@@ -1,5 +1,5 @@
 <template>
-  <div :key='$route.path' class="navigation center">
+  <div class="navigation center">
       <div class='current-ng-name'>
         {{$route.name.toUpperCase()}}
       </div>
@@ -22,7 +22,9 @@ export default {
   },
   filters:{
     upperFirstCase(string) {
-      return string[0].toUpperCase() + string.substring(1)
+      if (string) {
+        return string[0].toUpperCase() + string.substring(1)
+      }
     }
   },
   mounted() {

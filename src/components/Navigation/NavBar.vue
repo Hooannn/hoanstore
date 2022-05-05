@@ -15,12 +15,12 @@
               <span @click='$router.push({name:"shop",params:{page:1}})'>SHOP</span> <!-- <ion-icon class='ion-icon' name="chevron-down-outline"></ion-icon> -->
           </div>
           <div @mouseover="slide" @mouseout="unslide" style='height:100%' class="about center">
-              <span>ABOUT</span><ion-icon class='ion-icon' name="chevron-down-outline"></ion-icon>
+              <span>ACCOUNT</span><ion-icon class='ion-icon' name="chevron-down-outline"></ion-icon>
               <div class='drop-down'>
                   <div>
-                      <span>Contact</span>
-                      <span>Products</span>
-                      <span>Features</span>
+                      <span @click='$router.push({name:"cart"})'>Cart</span>
+                      <span @click='$router.push({name:"wishlist"})'>Wishlist</span>
+                      <span @click='$router.push({name:"payment"})'>Payment</span>
                   </div>
                   <div style='width:150px;height:100px;overflow:hidden;padding:15px;'>
                       <img style='width:100%;height:100%;objectFit:cover;borderRadius:15px' src="https://allfetch.com/wp-content/uploads/2021/04/introduce-your-online-store.jpeg">
