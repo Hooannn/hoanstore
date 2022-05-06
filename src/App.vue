@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+    <signup-modal/>
+    <login-modal/>
     <cart-bar/>
     <wishlist-bar/>
     <toastes-container/>
@@ -14,6 +16,7 @@
 </template>
 
 <script>
+import LoginModal from '@/components/Modal/LoginModal.vue'
 import ShortViewModal from '@/components/Modal/ShortViewModal.vue'
 import NavBar from '@/components/Navigation/NavBar.vue'
 import NotiSaleModal from './components/Modal/NotiSaleModal.vue'
@@ -22,8 +25,23 @@ import NavigationCom from './components/Navigation/NavigationCom.vue'
 import LoadingView from './views/LoadingView.vue'
 import CartBar from './components/Cart/CartBar.vue'
 import WishlistBar from './components/Wishlist/WishlistBar.vue'
+import SignupModal from './components/Modal/SignupModal.vue'
 export default {
-  components: { NavBar, ShortViewModal, NotiSaleModal, FooterBar, NavigationCom, LoadingView, CartBar, WishlistBar },
+  components: { NavBar, ShortViewModal, NotiSaleModal, FooterBar, NavigationCom, LoadingView, CartBar, WishlistBar,LoginModal, SignupModal },
+  /*
+  watch:{
+    '$store.state.cart.cart'() {
+      this.$store.state.cart.cart.forEach((item,index) => {
+        localStorage.setItem(`item${index}`,JSON.stringify(item))
+      });
+    }
+  },
+  created() {
+    for (let index = 0; index < localStorage.length-1; index++) {
+      this.$store.state.cart.cart.push(JSON.parse(localStorage.getItem(`item${index}`)))      
+    }
+  }
+  */
 }
 </script>
 

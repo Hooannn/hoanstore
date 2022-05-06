@@ -5,21 +5,22 @@
               <span>Item</span>
           </div>
           <div class="odt-quantity center">
-              <span>Quantity</span>
+              <span class='odtq-pc'>Quantity</span>
+              <span class='odtq-mb'>Qty</span>
           </div>
           <div class="odt-price center">
               <span>Price</span>
           </div>
       </div>
       <div v-for='(item,index) in items' :key='"odi"+index' class="od-items">
-          <div style='flexDirection:column;' class="odi-title center">
+          <div style='flexDirection:column;padding:5px 0' class="odi-title center">
               <div style='fontWeight:bold'>{{item.title}}</div> 
               <div style='fontSize:14px;color:gray'>( <span>Color : {{item.color|upperFirstCase}}</span><span v-if='item.kswitch'>, Switch : {{item.kswitch|upperFirstCase}} </span> )</div>
           </div>
           <div class="odi-quantity center">
               {{item.quantity}}
           </div>
-          <div class="odi-price center">
+          <div style='wordBreak:break-all' class="odi-price center">
               ${{item.quantity*item.price}}
           </div>
       </div>
@@ -33,7 +34,7 @@
           <div style='fontWeight:bolder'>
               TOTAL:
           </div>
-          <div style='fontSize:18px;color:orangered;fontWeight:bold'>
+          <div v-if='$store.state.cart.cart.length!=0' style='fontSize:18px;color:orangered;fontWeight:bold'>
               ${{$store.state.cart.cartTotal}}
           </div>
       </div>
@@ -115,9 +116,11 @@ pre {
     color:white;
     display: flex;
 }
+div.order-detail > div.od-title > div.odt-quantity.center > span.odtq-mb {
+    display: none;
+}
 .order-detail .od-items {
     width: 100%;
-    height: 60px;
     display: flex;
     border-bottom: 1px solid gainsboro;
 }
@@ -134,6 +137,7 @@ pre {
     font-weight: bolder;
     font-size: 16px;
 }
+
 .order-detail .od-title .odt-price,.order-detail .od-items .odi-price {
     width: 20%;
     font-weight: bolder;
@@ -142,5 +146,13 @@ pre {
 .order-detail .od-items .odi-title,.order-detail .od-items .odi-quantity,.order-detail .od-items .odi-price {
     font-weight: unset;
     border-right: 1px solid gainsboro;
+}
+@media only screen and (max-width: 425px) {
+    div.order-detail > div.od-title > div.odt-quantity.center > span.odtq-pc {
+        display: none;
+    }
+    div.order-detail > div.od-title > div.odt-quantity.center > span.odtq-mb {
+        display: block;
+    }
 }
 </style>

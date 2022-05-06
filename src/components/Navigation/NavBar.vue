@@ -28,7 +28,7 @@
               </div>
           </div>
           <div class="login-account center">
-              <button class="btn btn-dark btn-sm"><span>LOGIN</span></button> <!-- <ion-icon class='ion-icon' name="chevron-down-outline"></ion-icon> -->
+              <button @click='showLoginModal' class="btn btn-dark btn-sm"><span>LOGIN</span></button> <!-- <ion-icon class='ion-icon' name="chevron-down-outline"></ion-icon> -->
           </div>
           <div class="nav-control">
               <div style='position:relative' class="wish-list">
@@ -47,10 +47,12 @@
                   <div @click='closeNavMobile_' class="nb-cover">
                       <div class="nb-content">
                       <div @click='closeNavMobile' class='nb-back center'><ion-icon name="arrow-back-outline"></ion-icon></div>
-                      <div @click='$router.push({name:"home"})' :class='{selected:$route.name=="home"}' class="nb-home">HOME</div>
-                      <div @click='$router.push({name:"shop",params:{page:1}})' :class='{selected:$route.name=="shop"}' class="nb-shop">SHOP</div>
-                      <div class="nb-about">ABOUT <span class='center' style='fontSize:20px'><ion-icon name="chevron-forward"></ion-icon></span></div>
-                      <div class="nb-login"><button style='margin:10px auto' class="btn btn-sm btn-light">LOGIN</button></div>
+                      <div @click='$router.push({name:"home"}),closeNavMobile()' :class='{selected:$route.name=="home"}' class="nb-home">HOME</div>
+                      <div @click='$router.push({name:"shop",params:{page:1}}),closeNavMobile()' :class='{selected:$route.name=="shop"}' class="nb-shop">SHOP</div>
+                      <div @click='$router.push({name:"payment"}),closeNavMobile()' :class='{selected:$route.name=="payment"}' class="nb-payment">PAYMENT</div>
+                      <div @click='$router.push({name:"cart"}),closeNavMobile()' :class='{selected:$route.name=="cart"}' class="nb-cart">CART</div>
+                      <div @click='$router.push({name:"wishlist"}),closeNavMobile()' :class='{selected:$route.name=="wishlist"}' class="nb-wishlist">WISHLIST</div>
+                      <div @click='showLoginModal(),closeNavMobile()' class="nb-login"><button style='margin:10px auto' class="btn btn-sm btn-light">LOGIN</button></div>
                       <div class="nb-account">
                           <!-- unlogin -->
                           <div class="default-account center">
@@ -85,6 +87,9 @@ export default {
         }
     },
     methods: {
+        showLoginModal() {
+            document.querySelector('#app>div.login-modal').classList.toggle('show')
+        },
         showWishlist() {
             let wishlist=document.querySelector('#app > div.wishlist-bar')
             let wishlistC=document.querySelector('#app > div.wishlist-bar > div.wb-content')
@@ -298,7 +303,7 @@ export default {
     background-color:white;
     color:black;
 }
-.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-home,.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-shop,.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-about,.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-login {
+.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-home,.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-shop,.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-payment,.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-login,.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-wishlist,.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-cart {
     font-weight: lighter;
     font-size: 13px;
     width: 100%;
@@ -308,7 +313,7 @@ export default {
     justify-content: space-between;
     padding:0 10px;
 }
-.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-home.selected,.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-shop.selected,.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-about.selected {
+.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-home.selected,.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-shop.selected,.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-payment.selected,.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-cart.selected,.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-wishlist.selected {
     border-left: 5px solid orange;
     background-color: rgb(0, 0, 0,0.3);
 }

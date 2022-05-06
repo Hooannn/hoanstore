@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import db from '@/plugins/firebase'
 export default {
     data() {
         return {
@@ -46,6 +47,10 @@ export default {
             }
             if (this.checkEmptyInfo()) {
                 this.result="Your information is missing."
+                return
+            }
+            if (this.method=='') {
+                this.result="Please choose your payment method."
                 return
             }
             else {
@@ -89,7 +94,58 @@ export default {
         orderSent() {
             //sent order
             //save bill
-            alert('Thanks you. Your order has been sent.')
+            this.$store.dispatch('loading')
+            /*
+            let bill= {
+                items:this.$store.state.cart.cart,
+                info:this.$store.state.cart.orderInformation,
+                payment:this.method
+            }
+            */
+            //let items=this.$store.state.cart.cart
+            //let info=this.$store.state.cart.orderInformation
+            let bill= {
+                items:'items',
+                info:'info',
+                payment:this.method
+            }
+            db.ref('bills').push(bill).then((res)=>{
+                db.ref('bills').child(res.key).child('key').set(res.key).then(()=>{
+                    this.$store.dispatch('unload')
+                    this.$bvModal.msgBoxOk('Your order has been sent. Thanks you. Login if you want to manage your bill information.', {
+                        title: 'Confirmation',
+                        size: 'sm',
+                        buttonSize: 'sm',
+                        okVariant: 'success',
+                        headerClass: 'p-2 border-bottom-0',
+                        footerClass: 'p-2 border-top-0',
+                        centered: true
+                    })
+                    .then(value => {
+                        this.$store.state.cart.cart=[]
+                        this.$store.state.cart.orderInformation={
+                            name:'',
+                            email:'',
+                            phone:'',
+                            address:'',
+                        }
+                        return
+                    })
+                    .catch(err => {
+                        this.$store.state.cart.cart=[]
+                        this.$store.state.cart.orderInformation={
+                            name:'',
+                            email:'',
+                            phone:'',
+                            address:'',
+                        }
+                        return
+                    })
+                })
+            }).catch(err=>{
+                alert(err)
+                this.$store.dispatch('unload')
+            })
         }
     },
     mounted() {

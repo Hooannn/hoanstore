@@ -1,5 +1,5 @@
 <template>
-  <div class="payment-view">
+  <div :key='"pv"+$store.state.cart.rstKey+$store.state.cart.cart.length' class="payment-view">
       <div class="first-col">
           <div class="pv-orders">
               <div class="pvo-title">
@@ -63,4 +63,18 @@ export default {
     align-items: center;
 }
 /* 2 col */
+
+@media only screen and (max-width: 1280px) {
+    .payment-view {
+        width: 95%;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .payment-view {
+        width: 95%;
+    }
+    .payment-view .first-col,.payment-view .second-col {
+        width: 100%;
+    }
+}
 </style>
