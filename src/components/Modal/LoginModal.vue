@@ -21,6 +21,7 @@
 
 <script>
 import firebase from "firebase/app";
+import db from '@/plugins/firebase'
 export default {
     data() {
         return {
@@ -39,8 +40,15 @@ export default {
         }
     },
     methods: {
+        reset() {
+            this.err=''
+            this.result=''
+            this.email=''
+            this.password=''
+        },
         close() {
             document.querySelector('#app>div.login-modal').classList.remove('show')
+            this.reset()
         },
         showSignupModal() {
             this.close()
@@ -51,6 +59,7 @@ export default {
         close_(e) {
             if (e.target==document.querySelector('#app>div.login-modal')) {
                 document.querySelector('#app>div.login-modal').classList.remove('show')
+                this.reset()
             }
         },
         login() {
@@ -59,8 +68,15 @@ export default {
                 .auth()
                 .signInWithEmailAndPassword(this.email, this.password)
                 .then((response) => {
+                    if (this.$route.name!='home') {
+                        this.$router.push({name:"home"})
+                    }
                     this.$store.state.user=response.user
                     this.result='Login successfully.'
+                    db.ref('billinformation').child(response.user.uid).child('email').get().then((res)=>{this.$store.state.cart.orderInformation.email=res.val()}).catch(()=>{return})
+                    db.ref('billinformation').child(response.user.uid).child('phone').get().then((res)=>{this.$store.state.cart.orderInformation.phone=res.val()}).catch(()=>{return})
+                    db.ref('billinformation').child(response.user.uid).child('address').get().then((res)=>{this.$store.state.cart.orderInformation.address=res.val()}).catch(()=>{return})
+                    db.ref('billinformation').child(response.user.uid).child('name').get().then((res)=>{this.$store.state.cart.orderInformation.name=res.val()}).catch(()=>{return})
                     this.$store.dispatch('unload')
                 })
                 .catch(err=>{

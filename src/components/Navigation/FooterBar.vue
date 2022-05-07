@@ -49,8 +49,8 @@
                       Inspired by <a target='_black' href="https://andshop-vue.netlify.app/">https://andshop-vue.netlify.app</a>
                   </div>
                   <div style='width:100px;display:flex;justifyContent:space-between;alignItems:center' class="bf-supported">
-                    <span class='center' style='color:#454892;fontSize:24px'><ion-icon name="logo-paypal"></ion-icon></span>
-                    <span class='center' style='color:white;fontSize:24px'><ion-icon name="logo-alipay"></ion-icon></span>
+                    <span class='center' style='color:orange;fontSize:24px'><ion-icon name="logo-firebase"></ion-icon></span>
+                    <span class='center' style='color:#5a96ff;fontSize:24px'><ion-icon name="logo-ionic"></ion-icon></span>
                     <span class='center' style='color:rgb(66, 184, 131);fontSize:24px'><ion-icon name="logo-vue"></ion-icon></span>
                   </div>
               </div>

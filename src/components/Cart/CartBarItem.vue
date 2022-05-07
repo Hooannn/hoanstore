@@ -95,7 +95,7 @@ export default {
       }
       this.$store.state.cart.cart[this.index].quantity=this.cartItem.quantity
       this.$store.state.cart.cart[this.index].title=this.cartItem.title
-      this.$store.state.cart.cart[this.index].kswitch=this.cartItem.kswitch
+      this.$store.state.cart.cart[this.index].kswitch=this.cartItem.kswitch||"none"
       this.$store.state.cart.cart[this.index].color=this.cartItem.color
       this.$store.state.cart.cart[this.index].price=this.cartItem.price
       this.$store.state.cart.cart[this.index].image=this.cartItem.image

@@ -49,10 +49,16 @@ export default {
     methods: {
         close() {
             document.querySelector('#app>div.signup-modal').classList.remove('show')
+            this.reset()
+            this.err=''
+            this.result=''
         },
         close_(e) {
             if (e.target==document.querySelector('#app>div.signup-modal')) {
                 document.querySelector('#app>div.signup-modal').classList.remove('show')
+                this.reset()
+                this.err=''
+                this.result=''
             }
         },
         showLoginModal() {

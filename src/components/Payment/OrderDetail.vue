@@ -15,7 +15,7 @@
       <div v-for='(item,index) in items' :key='"odi"+index' class="od-items">
           <div style='flexDirection:column;padding:5px 0' class="odi-title center">
               <div style='fontWeight:bold'>{{item.title}}</div> 
-              <div style='fontSize:14px;color:gray'>( <span>Color : {{item.color|upperFirstCase}}</span><span v-if='item.kswitch'>, Switch : {{item.kswitch|upperFirstCase}} </span> )</div>
+              <div style='fontSize:14px;color:gray'>( <span>Color : {{item.color|upperFirstCase}}</span><span v-if='item.kswitch!="none"'>, Switch : {{item.kswitch|upperFirstCase}} </span> )</div>
           </div>
           <div class="odi-quantity center">
               {{item.quantity}}

@@ -5,7 +5,7 @@
       </div>
       <div class="wvi-item">
         <div class="wvii-image" >
-            <img style='width:100%;height:100%;objectFit:cover' :src="product.image">
+            <img style='width:100%;height:100%;objectFit:cover' :src="product.images[0]">
         </div>
         <div class="wvii-title center">
             <span>{{product.title}}</span>

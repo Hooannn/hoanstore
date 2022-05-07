@@ -236,6 +236,8 @@ export default {
     width: 100%;
     height: 100%;
     padding:10px;
+    max-height: 400px;
+    overflow: hidden;
 }
 .short-view-product .product-detail .pd-image .pd-image-show img{
     width: 100%;

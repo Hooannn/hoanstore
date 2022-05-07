@@ -56,7 +56,7 @@ export default {
             this.loadProduct=1
         }
         else {
-            this.loadProduct=this.$route.params.page*8
+            this.loadProduct=(this.$route.params.page-1)*8
         }
         this.$store.dispatch('loading')
         this.$rtdbBind('products',db.ref('products').orderByChild('id').startAt(this.loadProduct).limitToFirst(8)).then(()=>{

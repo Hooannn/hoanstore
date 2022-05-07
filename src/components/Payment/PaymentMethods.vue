@@ -24,14 +24,24 @@
 
 <script>
 import db from '@/plugins/firebase'
+import { mapGetters } from 'vuex'
 export default {
     data() {
         return {
+            bill:{},
             method:'',
             err:'',
             result:'',
             isLogin:null
         }
+    },
+    watch: {
+        method() {
+            this.result=''
+        }
+    },
+    computed: {
+        ...mapGetters(['GET_CART','GET_BILLINFO','GET_SUBTOTAL','GET_UID'])
     },
     methods:{
         codMethod() {
@@ -67,7 +77,8 @@ export default {
                 }) 
                 .then(value => {
                     if (value==true) {
-                        this.orderSent()
+                        this.getBill()
+                        setTimeout(this.orderSent(),100)
                     }
                 })
                 .catch(err => {
@@ -91,26 +102,22 @@ export default {
                 return true
             }
         },
+        getBill() {
+            this.bill={
+                items:this.GET_CART,
+                billinfo:this.GET_BILLINFO,
+                subtotal:this.GET_SUBTOTAL,
+                method:this.method
+            }
+        },
         orderSent() {
-            //sent order
-            //save bill
             this.$store.dispatch('loading')
-            /*
-            let bill= {
-                items:this.$store.state.cart.cart,
-                info:this.$store.state.cart.orderInformation,
-                payment:this.method
-            }
-            */
-            //let items=this.$store.state.cart.cart
-            //let info=this.$store.state.cart.orderInformation
-            let bill= {
-                items:'items',
-                info:'info',
-                payment:this.method
-            }
-            db.ref('bills').push(bill).then((res)=>{
-                db.ref('bills').child(res.key).child('key').set(res.key).then(()=>{
+            
+            /*  */
+            /* send bill */
+            db.ref('bills').push({time:new Date().getTime(),date:new Date().toLocaleString(),uid:this.GET_UID||'user'}).then((res)=>{
+                db.ref('bills').child(res.key).child('key').set(res.key)
+                db.ref('bills').child(res.key).child('bill').set(this.bill).then(()=>{
                     this.$store.dispatch('unload')
                     this.$bvModal.msgBoxOk('Your order has been sent. Thanks you. Login if you want to manage your bill information.', {
                         title: 'Confirmation',
@@ -123,33 +130,26 @@ export default {
                     })
                     .then(value => {
                         this.$store.state.cart.cart=[]
-                        this.$store.state.cart.orderInformation={
-                            name:'',
-                            email:'',
-                            phone:'',
-                            address:'',
-                        }
                         return
                     })
                     .catch(err => {
+                        this.$store.dispatch('unload')
+                        this.result=err
                         this.$store.state.cart.cart=[]
-                        this.$store.state.cart.orderInformation={
-                            name:'',
-                            email:'',
-                            phone:'',
-                            address:'',
-                        }
                         return
                     })
                 })
             }).catch(err=>{
-                alert(err)
+                this.result=err
                 this.$store.dispatch('unload')
             })
         }
     },
     mounted() {
         this.isLogin=false
+        if (this.$store.state.user.email!=null) {
+            this.isLogin=true
+        }
         if (this.isLogin==false) {
             this.err='Please login to add card information.'
         }

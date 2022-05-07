@@ -10,14 +10,8 @@
               <span @click='selected="on-sale"' class='center' :class='{selected:selected=="on-sale"}'>ON SALE</span>
           </div>
       </div>
-      <div v-if='selected=="best-seller"' key='best-seller' class="top-product-items">
+      <div :key='selected' class="top-product-items">
           <top-product-item v-for='product in topProductItems' :key='product.key' :class='product.key' :product='product'/>
-      </div>
-      <div v-if='selected=="feature"' key='feature' class="top-product-items">
-
-      </div>
-      <div v-if='selected=="on-sale"' key='on-sale' class="top-product-items">
-
       </div>
   </div>
 </template>

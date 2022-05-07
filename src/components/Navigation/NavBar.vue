@@ -28,15 +28,16 @@
               </div>
           </div>
           <div class="login-account center">
-              <button @click='showLoginModal' class="btn btn-dark btn-sm"><span>LOGIN</span></button> <!-- <ion-icon class='ion-icon' name="chevron-down-outline"></ion-icon> -->
+              <button v-if='$store.state.user.email==null' @click='showLoginModal' class="btn btn-dark btn-sm"><span>LOGIN</span></button> <!-- <ion-icon class='ion-icon' name="chevron-down-outline"></ion-icon> -->
+              <div @click='$router.push({name:"account"})' onMouseOut='this.style.color="unset"' onMouseOver='this.style.color="orangered"' v-if='$store.state.user.email!=null'><span v-if='$store.state.user.displayName!=null'>{{$store.state.user.displayName}}</span><span v-if='$store.state.user.displayName==null'>{{$store.state.user.email}}</span></div>
           </div>
           <div class="nav-control">
               <div style='position:relative' class="wish-list">
-                  <div v-if='$store.state.cart.wishlist.length>0' style='height:17px;width:17px;position:absolute;right:-5px;bottom:3px;backgroundColor:orange;color:white;borderRadius:50%;fontSize:11px;zIndex:5' class="quantity center">{{$store.state.cart.wishlist.length}}</div>
+                  <div v-if='$store.state.cart.wishlist.length>0' style='pointerEvents:none;height:17px;width:17px;position:absolute;right:-5px;bottom:3px;backgroundColor:orange;color:white;borderRadius:50%;fontSize:11px;zIndex:5' class="quantity center">{{$store.state.cart.wishlist.length}}</div>
                   <ion-icon @click='showWishlist' class='ion-icon' name="heart-outline"></ion-icon>
               </div>
               <div style='position:relative' class="cart">
-                  <div v-if='$store.state.cart.cart.length>0' style='height:17px;width:17px;position:absolute;right:-5px;bottom:3px;backgroundColor:orange;color:white;borderRadius:50%;fontSize:11px;zIndex:5' class="quantity center">{{$store.state.cart.cart.length}}</div>
+                  <div v-if='$store.state.cart.cart.length>0' style='pointerEvents:none;height:17px;width:17px;position:absolute;right:-5px;bottom:3px;backgroundColor:orange;color:white;borderRadius:50%;fontSize:11px;zIndex:5' class="quantity center">{{$store.state.cart.cart.length}}</div>
                   <ion-icon @click='showCart' class='ion-icon' name="cart-outline"></ion-icon>
               </div>
               <div class="search">
@@ -52,10 +53,11 @@
                       <div @click='$router.push({name:"payment"}),closeNavMobile()' :class='{selected:$route.name=="payment"}' class="nb-payment">PAYMENT</div>
                       <div @click='$router.push({name:"cart"}),closeNavMobile()' :class='{selected:$route.name=="cart"}' class="nb-cart">CART</div>
                       <div @click='$router.push({name:"wishlist"}),closeNavMobile()' :class='{selected:$route.name=="wishlist"}' class="nb-wishlist">WISHLIST</div>
-                      <div @click='showLoginModal(),closeNavMobile()' class="nb-login"><button style='margin:10px auto' class="btn btn-sm btn-light">LOGIN</button></div>
+                      <div v-if='$store.state.user.email==null' @click='showLoginModal(),closeNavMobile()' class="nb-login"><button style='margin:10px auto' class="btn btn-sm btn-light">LOGIN</button></div>
+                      <div v-if='$store.state.user.email!=null' @click='logOut(),closeNavMobile()' class="nb-login"><button style='margin:10px auto' class="btn btn-sm btn-light">LOGOUT</button></div>
                       <div class="nb-account">
                           <!-- unlogin -->
-                          <div class="default-account center">
+                          <div v-if='$store.state.user.email==null' class="default-account center">
                               <div style='fontSize:30px' class='da-avatar center'>
                                   <ion-icon name="person-circle"></ion-icon>
                               </div>
@@ -64,11 +66,15 @@
                               </div>
                           </div>
                           <!-- is login -->
-                          <!--                           
-                          <div class="account">
-
-                          </div> 
-                          -->
+                          <div @click='$router.push({name:"account"})' v-if='$store.state.user.email!=null' class="default-account center">
+                              <div v-if='$store.state.user.photoURL==null' style='fontSize:30px' class='da-avatar center'>
+                                  <ion-icon name="person-circle"></ion-icon>
+                              </div>
+                              <div class='da-info center' style='flexDirection:column'>
+                                  <span>{{$store.state.user.email}}</span>
+                              </div>
+                          </div>
+                          <!-- -->
                       </div>
                     </div>
                   </div>
@@ -80,6 +86,7 @@
 
 <script>
 import icon from '@/assets/Icon/store-2.png'
+import firebase from "firebase/app";
 export default {
     data() {
         return {
@@ -87,6 +94,18 @@ export default {
         }
     },
     methods: {
+        logOut() {
+            this.$store.dispatch('loading')
+            firebase.auth().signOut().then(() => {
+                this.$store.state.user={}
+                this.closeNavMobile()
+                this.$router.go()
+                this.$store.dispatch('unload')
+            }).catch((error) => {
+                alert(err)
+                this.$store.dispatch('unload')
+            });
+        },
         showLoginModal() {
             document.querySelector('#app>div.login-modal').classList.toggle('show')
         },

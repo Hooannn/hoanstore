@@ -135,7 +135,7 @@ export default {
             this.key2++
             this.key3++
             this.key4++
-        }
+        },
     },
 }
 </script>

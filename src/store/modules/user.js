@@ -9,7 +9,9 @@ const user = {
       
     },
     getters: { 
-        
+        GET_UID(state) {
+          return state.uid
+        }
     }
   }
 export default user

@@ -29,7 +29,7 @@
                   </div>
               </div>
           </div>
-          <carousel :autoplaySpeed='autoplaySpeed' :dots="true" :autoplay="true" :nav="false" :items=1 class="nac-images">
+          <carousel :dots="false" :autoplay="true" :nav="false" :items=1 class="nac-images">
               <img v-for='image in images' :key='image[".key"]' :src="image['.value']">
           </carousel>
       </div>
@@ -49,7 +49,6 @@ export default {
         return {
             product:{},
             images:[],
-            autoplaySpeed:1100
         }
     },
     methods:{
@@ -149,7 +148,6 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
 }
 .sec-4 .new-arrival .na-content .nac-images img {
     width: 88%;

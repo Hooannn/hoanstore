@@ -1,7 +1,7 @@
 <template>
   <div class="pw-user-info">
     <div class="pwui-title">
-      <span>INFORMATIONS</span>
+      <span>INFORMATION</span>
     </div>
     <div class="pwui-form">
         <div class="pwuif-name">
@@ -21,17 +21,57 @@
           <input v-model='$store.state.cart.orderInformation.address' placeholder="Address*" type="text">
         </div>
       </div>
+      <button @click='saveInfo' :disabled='$store.state.user.email==null' class="btn btn-sm btn-dark" style='margin-top:15px'>Save bill information</button>
+      <div v-if='$store.state.user.email==null' style='color:orangered;fontSize:13px;padding:5px 0;'>Login to save information.</div>
+      <div style='color:green;fontSize:13px;padding:5px 0;'>{{result}}</div>
+      <div style='color:red;fontSize:13px;padding:5px 0;'>{{err}}</div>
   </div>
 </template>
 
 <script>
+import db from '@/plugins/firebase'
 export default {
+  data() {
+    return {
+      result:'',
+      err:''
+    }
+  },
+  methods: {
+    saveInfo() {
+      this.$store.dispatch('loading')
+      db.ref('billinformation').child(this.$store.state.user.uid).child('email').set(this.$store.state.cart.orderInformation.email).then(()=>{
+        db.ref('billinformation').child(this.$store.state.user.uid).child('phone').set(this.$store.state.cart.orderInformation.phone)
+        db.ref('billinformation').child(this.$store.state.user.uid).child('address').set(this.$store.state.cart.orderInformation.address)
+        db.ref('billinformation').child(this.$store.state.user.uid).child('name').set(this.$store.state.cart.orderInformation.name)
+        this.result='Save information successfully.'
+        this.$store.dispatch('unload')
+      }).catch(err=>{
+        this.err=err
+        this.$store.dispatch('unload')
+      })
+    }
+  },
   watch: {
     '$store.state.cart.orderInformation.phone'(e) {
+      this.err=''
+      this.result=''
       if (isNaN(e)) {
         this.$store.state.cart.orderInformation.phone=''
       }
-    }
+    },
+    '$store.state.cart.orderInformation.name'(e) {
+        this.err=''
+        this.result=''
+    },
+    '$store.state.cart.orderInformation.address'(e) {
+        this.err=''
+        this.result=''
+    },
+    '$store.state.cart.orderInformation.email'(e) {
+        this.err=''
+        this.result=''
+    },
   }
 }
 </script>
@@ -64,5 +104,8 @@ export default {
   outline:none;
   border:1px solid gainsboro;
   border-radius: 5px;
+}
+.pw-user-info .pwui-form div input:focus {
+  border-color: orange;
 }
 </style>

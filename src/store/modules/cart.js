@@ -29,7 +29,15 @@ const cart = {
         }
     },
     getters: { 
-        
+      GET_CART(state) {
+        return state.cart
+      },
+      GET_BILLINFO(state) {
+        return state.orderInformation
+      },
+      GET_SUBTOTAL(state) {
+        return state.cartTotal
+      }
     }
   }
 export default cart

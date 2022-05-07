@@ -40,6 +40,11 @@ const routes = [
         name:'payment',
         component:()=>import ('@/views/Payment/PaymentView.vue')
       },
+      {
+        path:'/account',
+        name:'account',
+        component:()=>import ('@/views/Account/AccountView.vue')
+      },
     ]
   },
   {
