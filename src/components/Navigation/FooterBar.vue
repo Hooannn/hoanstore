@@ -34,8 +34,9 @@
                 </div>
                 <div class="tf-newsletter">
                     <h5>NEWSLETTER</h5>
-                    <input style='outline:none;width:220px' type="email" placeholder="Enter your mail...">
-                    <button style='width:60px;margin:5px;' class="btn btn-sm btn-dark">SEND</button>
+                    <input v-model='email' style='outline:none;width:220px' type="email" placeholder="Enter your mail...">
+                    <span style='color:red;fontSize:13.5px;'>{{err}}</span>
+                    <button @click='send' style='width:60px;margin:5px;' class="btn btn-sm btn-dark">SEND</button>
                 </div>
               </div>
           </div>
@@ -62,10 +63,37 @@ import icon from '@/assets/Icon/store-2.png'
 export default {
     data() {
         return {
-            icon:icon
+            icon:icon,
+            email:'',
+            err:''
+        }
+    },
+    watch: {
+        email(e) {
+            if (e.trim()!='' && e!=null) {
+                this.err=''
+            }
         }
     },
     methods: {
+        send() {
+            if (this.email.trim()=='' || this.email==null) {
+                this.err='Your email is empty.'
+                return
+            }
+            else {
+                this.$bvModal.msgBoxOk('Thanks you. Check your email regularly to get news information.', {
+                        title: 'Success',
+                        size: 'sm',
+                        buttonSize: 'sm',
+                        okVariant: 'success',
+                        headerClass: 'p-2 border-bottom-0',
+                        footerClass: 'p-2 border-top-0',
+                        centered: true
+                })
+                this.email=''
+            }
+        },
         goHome() {
             if (this.$route.name=="home") {
                 document.documentElement.scrollTop=0

@@ -5,7 +5,6 @@
     <login-modal/>
     <cart-bar/>
     <wishlist-bar/>
-    <toastes-container/>
     <loading-view/>
     <short-view-modal/>
     <noti-sale-modal/>

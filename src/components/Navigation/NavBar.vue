@@ -163,7 +163,7 @@ export default {
             title.style.color='black'
             icon.style.color='black'
         }
-    }
+    },
 }
 </script>
 

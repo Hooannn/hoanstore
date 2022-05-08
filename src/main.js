@@ -13,7 +13,6 @@ Vue.use(ToastPlugin)
 Vue.use(PortalVue)
 Vue.use(VueFire)
 Vue.config.productionTip = false
-
 new Vue({
   nanobar,
   router,
