@@ -45,6 +45,11 @@ const routes = [
         name:'account',
         component:()=>import ('@/views/Account/AccountView.vue')
       },
+      {
+        path:'/manage',
+        name:'manage',
+        component:()=>import ('@/views/Manage/ManageView.vue')
+      },
     ]
   },
   {

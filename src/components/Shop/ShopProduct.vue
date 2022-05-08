@@ -49,7 +49,7 @@ export default {
                 }) 
                 .then(value => {
                     if (value==true) {
-                        this.$store.dispatch('addCart',this.product.key)
+                        this.$store.dispatch('addCart',{key:this.product.key})
                     }
                 })
                 .catch(err => {

@@ -37,6 +37,9 @@ const cart = {
       },
       GET_SUBTOTAL(state) {
         return state.cartTotal
+      },
+      GET_BDES(state) {
+        return state.description
       }
     }
   }

@@ -53,6 +53,7 @@
                       <div @click='$router.push({name:"payment"}),closeNavMobile()' :class='{selected:$route.name=="payment"}' class="nb-payment">PAYMENT</div>
                       <div @click='$router.push({name:"cart"}),closeNavMobile()' :class='{selected:$route.name=="cart"}' class="nb-cart">CART</div>
                       <div @click='$router.push({name:"wishlist"}),closeNavMobile()' :class='{selected:$route.name=="wishlist"}' class="nb-wishlist">WISHLIST</div>
+                      <div v-if='$store.state.user.email!=null' @click='$router.push({name:"account"}),closeNavMobile()' :class='{selected:$route.name=="account"}' class="nb-acc">ACCOUNT</div>
                       <div v-if='$store.state.user.email==null' @click='showLoginModal(),closeNavMobile()' class="nb-login"><button style='margin:10px auto' class="btn btn-sm btn-light">LOGIN</button></div>
                       <div v-if='$store.state.user.email!=null' @click='logOut(),closeNavMobile()' class="nb-login"><button style='margin:10px auto' class="btn btn-sm btn-light">LOGOUT</button></div>
                       <div class="nb-account">
@@ -66,7 +67,7 @@
                               </div>
                           </div>
                           <!-- is login -->
-                          <div @click='$router.push({name:"account"})' v-if='$store.state.user.email!=null' class="default-account center">
+                          <div @click='$router.push({name:"account"}),closeNavMobile()' v-if='$store.state.user.email!=null' class="default-account center">
                               <div v-if='$store.state.user.photoURL==null' style='fontSize:30px' class='da-avatar center'>
                                   <ion-icon name="person-circle"></ion-icon>
                               </div>
@@ -97,12 +98,11 @@ export default {
         logOut() {
             this.$store.dispatch('loading')
             firebase.auth().signOut().then(() => {
-                this.$store.state.user={}
                 this.closeNavMobile()
-                this.$router.go()
-                this.$store.dispatch('unload')
+                this.$store.state.user={}
+                setTimeout(this.$router.go(),300)
             }).catch((error) => {
-                alert(err)
+                alert(error)
                 this.$store.dispatch('unload')
             });
         },
@@ -322,7 +322,13 @@ export default {
     background-color:white;
     color:black;
 }
-.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-home,.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-shop,.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-payment,.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-login,.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-wishlist,.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-cart {
+.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-home,
+.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-shop,
+.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-payment,
+.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-login,
+.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-wishlist,
+.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-cart,
+.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-acc {
     font-weight: lighter;
     font-size: 13px;
     width: 100%;
@@ -332,7 +338,12 @@ export default {
     justify-content: space-between;
     padding:0 10px;
 }
-.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-home.selected,.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-shop.selected,.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-payment.selected,.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-cart.selected,.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-wishlist.selected {
+.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-home.selected,
+.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-shop.selected,
+.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-payment.selected,
+.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-cart.selected,
+.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-wishlist.selected,
+.nav-bar .nav-control .nav-mobile .nb-cover .nb-content .nb-acc.selected {
     border-left: 5px solid orange;
     background-color: rgb(0, 0, 0,0.3);
 }

@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <bill-modal :key="'billmodal'+$store.state.app.billKey"/>
     <signup-modal/>
     <login-modal/>
     <cart-bar/>
@@ -26,8 +27,9 @@ import LoadingView from './views/LoadingView.vue'
 import CartBar from './components/Cart/CartBar.vue'
 import WishlistBar from './components/Wishlist/WishlistBar.vue'
 import SignupModal from './components/Modal/SignupModal.vue'
+import BillModal from './components/Modal/BillModal.vue'
 export default {
-  components: { NavBar, ShortViewModal, NotiSaleModal, FooterBar, NavigationCom, LoadingView, CartBar, WishlistBar,LoginModal, SignupModal },
+  components: { NavBar, ShortViewModal, NotiSaleModal, FooterBar, NavigationCom, LoadingView, CartBar, WishlistBar,LoginModal, SignupModal, BillModal },
   /*
   watch:{
     '$store.state.cart.cart'() {
@@ -48,9 +50,7 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Lato&family=Poppins:wght@200;400&display=swap');
 /*  scroll bar style */
-::-webkit-scrollbar{
-  display:none;
-}
+
 /*  scroll bar style */
 body {
   margin: 0;
@@ -62,6 +62,7 @@ body {
   font-family: "Poppins", sans-serif;
   user-select: none;
   background-color: rgba(229, 240, 248, 0.904);
+  overflow-x:hidden;
 }
 body > div.nanobar .bar {
   background:orange;

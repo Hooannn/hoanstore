@@ -28,10 +28,9 @@
                 </div>
                 <div class="tf-information">
                     <h5>INFORMATION</h5>
-                    <span>Home</span>
-                    <span>Shop</span>
-                    <span>About</span>
-                    <span>Account</span>
+                    <span @click='goHome'>Home</span>
+                    <span @click='$router.push({name:"shop",params:{page:1}})'>Shop</span>
+                    <span v-if='$store.state.user.email!=null' @click='$router.push({name:"account"})'>Account</span>
                 </div>
                 <div class="tf-newsletter">
                     <h5>NEWSLETTER</h5>
@@ -66,6 +65,15 @@ export default {
             icon:icon
         }
     },
+    methods: {
+        goHome() {
+            if (this.$route.name=="home") {
+                document.documentElement.scrollTop=0
+                return
+            }
+            this.$router.push({name:"home"})
+        }
+    }
 
 }
 </script>

@@ -73,10 +73,10 @@ export default {
                     }
                     this.$store.state.user=response.user
                     this.result='Login successfully.'
-                    db.ref('billinformation').child(response.user.uid).child('email').get().then((res)=>{this.$store.state.cart.orderInformation.email=res.val()}).catch(()=>{return})
-                    db.ref('billinformation').child(response.user.uid).child('phone').get().then((res)=>{this.$store.state.cart.orderInformation.phone=res.val()}).catch(()=>{return})
-                    db.ref('billinformation').child(response.user.uid).child('address').get().then((res)=>{this.$store.state.cart.orderInformation.address=res.val()}).catch(()=>{return})
-                    db.ref('billinformation').child(response.user.uid).child('name').get().then((res)=>{this.$store.state.cart.orderInformation.name=res.val()}).catch(()=>{return})
+                    db.ref('billinformation').child(response.user.uid).child('email').get().then((res)=>{this.$store.state.cart.orderInformation.email=res.val()||''}).catch(()=>{return})
+                    db.ref('billinformation').child(response.user.uid).child('phone').get().then((res)=>{this.$store.state.cart.orderInformation.phone=res.val()||''}).catch(()=>{return})
+                    db.ref('billinformation').child(response.user.uid).child('address').get().then((res)=>{this.$store.state.cart.orderInformation.address=res.val()||''}).catch(()=>{return})
+                    db.ref('billinformation').child(response.user.uid).child('name').get().then((res)=>{this.$store.state.cart.orderInformation.name=res.val()||''}).catch(()=>{return})
                     this.$store.dispatch('unload')
                 })
                 .catch(err=>{

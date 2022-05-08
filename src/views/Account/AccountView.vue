@@ -8,6 +8,7 @@
           <bill-list/>
       </div>
       <button @click='logOut' style='margin:0 auto;marginTop:25px' class="btn btn-sm btn-dark">Logout</button>
+      <button v-if='$store.state.user.email=="admin@gmail.com"' @click='gotoAdminSite' style='margin:0 auto;marginTop:25px' class="btn btn-sm btn-success">Manage</button>
   </div>
 </template>
 
@@ -20,6 +21,9 @@ import BillList from '@/components/Account/BillList.vue'
 export default {
   components: { AccountDetail, AccountPassword, BillList },
   methods: {
+      gotoAdminSite() {
+          this.$router.push({name:"manage"})
+      },
       logOut() {
             this.$store.dispatch('loading')
             firebase.auth().signOut().then(() => {

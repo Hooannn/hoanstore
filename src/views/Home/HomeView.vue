@@ -137,6 +137,9 @@ export default {
             this.key4++
         },
     },
+    mounted() {
+        document.documentElement.scrollTop=0
+    }
 }
 </script>
 

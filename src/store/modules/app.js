@@ -1,6 +1,7 @@
 const app = {
     state: () => ({ 
-        viewMode:'grid'
+        viewMode:'grid',
+        billKey:null,
     }),
     mutations: { 
         

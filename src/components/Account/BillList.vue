@@ -9,7 +9,7 @@
           <span style='fontWeight:bold'>{{bill.key}}</span>
           <span style='fontSize:14px;color:grey'>{{bill.date}}</span>
           <span style='fontSize:14px'>Cost: <span style='color:orangered;fontWeight:bold'>${{bill.bill.subtotal}}</span></span>
-          <ion-icon onMouseOut='this.style.color="gray"' onMouseOver='this.style.color="orangered"' style='transition:.2s linear;color:gray;position:absolute;right:5px;fontSize:18px;cursor:pointer' name="eye-outline"></ion-icon>
+          <ion-icon @click='showBillModal(bill.key)' onMouseOut='this.style.color="gray"' onMouseOver='this.style.color="orangered"' style='transition:.2s linear;color:gray;position:absolute;right:5px;fontSize:18px;cursor:pointer' name="eye-outline"></ion-icon>
         </div>
       </div>
   </div>
@@ -34,6 +34,15 @@ export default {
       });
     }
   },
+  methods: {
+    showBillModal(key) {
+      this.$store.state.app.billKey=key
+      setTimeout(function(){
+        let billModal=document.querySelector('#app>div.bill-modal')
+        billModal.classList.add('show')
+      },100)
+    }
+  },
   mounted() {
     this.$rtdbBind('data',db.ref('bills'))
   }
@@ -48,6 +57,8 @@ export default {
   padding: 15px 25px;
   display: flex;
   flex-direction: column;
+  max-height: 700px;
+  overflow-y:auto;
 }
 .bill-list .bl-title {
   height: 50px;
@@ -75,4 +86,4 @@ export default {
   flex-direction: column;
   position: relative;
 }
-</style>
+</style>  

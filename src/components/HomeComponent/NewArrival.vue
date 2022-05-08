@@ -29,9 +29,9 @@
                   </div>
               </div>
           </div>
-          <carousel :dots="false" :autoplay="true" :nav="false" :items=1 class="nac-images">
-              <img v-for='image in images' :key='image[".key"]' :src="image['.value']">
-          </carousel>
+          <div class="nac-images">
+              <img :src="images[2]['.value']">
+          </div>
       </div>
   </div>
 </template>

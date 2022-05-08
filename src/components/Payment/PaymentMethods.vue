@@ -41,7 +41,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['GET_CART','GET_BILLINFO','GET_SUBTOTAL','GET_UID'])
+        ...mapGetters(['GET_CART','GET_BILLINFO','GET_SUBTOTAL','GET_UID','GET_BDES'])
     },
     methods:{
         codMethod() {
@@ -107,7 +107,8 @@ export default {
                 items:this.GET_CART,
                 billinfo:this.GET_BILLINFO,
                 subtotal:this.GET_SUBTOTAL,
-                method:this.method
+                method:this.method,
+                des:this.GET_BDES
             }
         },
         orderSent() {
