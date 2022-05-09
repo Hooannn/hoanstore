@@ -1,6 +1,9 @@
 const app = {
     state: () => ({ 
         viewMode:'grid',
+        sort:'Select',
+        lowStartPrice:0,
+        highStartPrice:100000,
         billKey:null,
     }),
     mutations: { 

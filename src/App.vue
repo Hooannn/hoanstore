@@ -10,7 +10,7 @@
     <noti-sale-modal/>
     <nav-bar/>
     <navigation-com :key='"navc"+$route.path' v-if="$route.name!='home'"/>
-    <router-view :key='"main"+$route.fullPath'/>
+    <router-view :key='"main"+$route.fullPath+$store.state.app.sort'/>
     <footer-bar/>
   </div>
 </template>
