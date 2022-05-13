@@ -1,6 +1,6 @@
 <template>
   <div class="product-detail">
-      <carousel :items=1 :nav="false" :dots="false" class="pd-images center">
+      <carousel v-if='product.images.length>0' :items=1 :nav="false" :dots="false" class="pd-images center">
           <img v-for='image in product.images' :key='image[".key"]' :src="image">
       </carousel>
       <div class="pd-info">
