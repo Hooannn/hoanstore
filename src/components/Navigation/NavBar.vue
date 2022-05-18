@@ -1,7 +1,7 @@
 <template>
   <div class="nav-bar center">
       <div class="content">
-          <div class="brand">
+          <div @click='goHome' class="brand">
             <img class='brand-icon' :src="icon">
             <div class='brand-name'>
               <div style='color:orangered;fontWeight:800;'>hoanthui's Store</div>
@@ -12,15 +12,15 @@
               <span @click='$router.push({name:"home"})' :class='{selected:$route.name=="home"}'>HOME</span> <!-- <ion-icon class='ion-icon' name="chevron-down-outline"></ion-icon> -->
           </div>
           <div class="shop center">
-              <span @click='$router.push({name:"shop",params:{page:1}})'>SHOP</span> <!-- <ion-icon class='ion-icon' name="chevron-down-outline"></ion-icon> -->
+              <span @click='$router.push({name:"shop",params:{page:1}})' :class='{selected:$route.name=="shop"}'>SHOP</span> <!-- <ion-icon class='ion-icon' name="chevron-down-outline"></ion-icon> -->
           </div>
-          <div @mouseover="slide" @mouseout="unslide" style='height:100%' class="about center">
-              <span>ACCOUNT</span><ion-icon class='ion-icon' name="chevron-down-outline"></ion-icon>
+          <div @mouseover="slide" @mouseout="unslide" style='height:100%' class="about center" >
+              <span >ACCOUNT</span><ion-icon class='ion-icon' name="chevron-down-outline"></ion-icon>
               <div class='drop-down'>
                   <div>
-                      <span @click='$router.push({name:"cart"})'>Cart</span>
-                      <span @click='$router.push({name:"wishlist"})'>Wishlist</span>
-                      <span @click='$router.push({name:"payment"})'>Payment</span>
+                      <span :class='{selected:$route.name=="cart"}' @click='$router.push({name:"cart"})'>Cart</span>
+                      <span :class='{selected:$route.name=="wishlist"}' @click='$router.push({name:"wishlist"})'>Wishlist</span>
+                      <span :class='{selected:$route.name=="payment"}' @click='$router.push({name:"payment"})'>Payment</span>
                   </div>
                   <div style='width:150px;height:100px;overflow:hidden;padding:15px;'>
                       <img style='width:100%;height:100%;objectFit:cover;borderRadius:15px' src="https://allfetch.com/wp-content/uploads/2021/04/introduce-your-online-store.jpeg">
@@ -29,22 +29,22 @@
           </div>
           <div class="login-account center">
               <button v-if='$store.state.user.email==null' @click='showLoginModal' class="btn btn-dark btn-sm"><span>LOGIN</span></button> <!-- <ion-icon class='ion-icon' name="chevron-down-outline"></ion-icon> -->
-              <div @click='$router.push({name:"account"})' onMouseOut='this.style.color="unset"' onMouseOver='this.style.color="orangered"' v-if='$store.state.user.email!=null'><span v-if='$store.state.user.displayName!=null'>{{$store.state.user.displayName}}</span><span v-if='$store.state.user.displayName==null'>{{$store.state.user.email}}</span></div>
+              <div @click='$router.push({name:"account"})' :class='{selected:$route.name=="account"}' v-if='$store.state.user.email!=null'><span v-if='$store.state.user.displayName!=null'>{{$store.state.user.displayName}}</span><span v-if='$store.state.user.displayName==null'>{{$store.state.user.email}}</span></div>
           </div>
           <div class="nav-control">
-              <div style='position:relative' class="wish-list">
+              <div style='position:relative' class="wish-list center">
                   <div v-if='$store.state.cart.wishlist.length>0' style='pointerEvents:none;height:17px;width:17px;position:absolute;right:-5px;bottom:3px;backgroundColor:orange;color:white;borderRadius:50%;fontSize:11px;zIndex:5' class="quantity center">{{$store.state.cart.wishlist.length}}</div>
                   <ion-icon @click='showWishlist' class='ion-icon' name="heart-outline"></ion-icon>
               </div>
-              <div style='position:relative' class="cart">
+              <div style='position:relative' class="cart center">
                   <div v-if='$store.state.cart.cart.length>0' style='pointerEvents:none;height:17px;width:17px;position:absolute;right:-5px;bottom:3px;backgroundColor:orange;color:white;borderRadius:50%;fontSize:11px;zIndex:5' class="quantity center">{{$store.state.cart.cart.length}}</div>
                   <ion-icon @click='showCart' class='ion-icon' name="cart-outline"></ion-icon>
               </div>
-              <div class="search">
+              <div class="search center">
                   <ion-icon class='ion-icon' name="search-outline"></ion-icon>
               </div>
               <div class="nav-mobile">
-                  <span @click='showNav' class='nb-icon'><ion-icon class='ion-icon' name="menu"></ion-icon></span>
+                  <span @click='showNav' class='nb-icon center'><ion-icon class='ion-icon' name="menu"></ion-icon></span>
                   <div @click='closeNavMobile_' class="nb-cover">
                       <div class="nb-content">
                       <div @click='closeNavMobile' class='nb-back center'><ion-icon name="arrow-back-outline"></ion-icon></div>
@@ -95,6 +95,13 @@ export default {
         }
     },
     methods: {
+        goHome() {
+            if (this.$route.name=="home") {
+                document.documentElement.scrollTop=0
+                return
+            }
+            this.$router.push({name:'home'})
+        },
         logOut() {
             this.$store.dispatch('loading')
             firebase.auth().signOut().then(() => {
@@ -168,6 +175,12 @@ export default {
 </script>
 
 <style>
+div.nav-bar.center > div > div.about.center > div > div:nth-child(1) span.selected {
+    color:orange;
+}
+div.nav-bar.center > div > div.login-account.center > div:hover,div.nav-bar.center > div > div.login-account.center > div.selected {
+    color:orangered;
+}
 .nav-bar {
     position: fixed;
     width: 1280px;
@@ -225,6 +238,7 @@ export default {
 .nav-bar .content .nav-control{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 200px;
 }
 .nav-bar .content .about .drop-down {
