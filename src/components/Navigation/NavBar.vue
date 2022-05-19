@@ -1,5 +1,14 @@
 <template>
   <div class="nav-bar center">
+      <div class='nb-search center'>
+          <div @click='search' class='center nbs-search' ><ion-icon name="search-outline"></ion-icon></div>
+          <div class="center nbs-input" @keypress.enter="search"><input v-model='searchVal' placeholder="Search..." type="text"></div>
+          <div @click='toggleSearchBar' class='center nbs-close' ><ion-icon name="close-circle-outline"></ion-icon></div>
+          <div class="nbs-result">
+              <search-item @resetResult="resetResult" v-for='(item,index) in results' :key='"result"+index' :item='item'/>
+              <div style='padding:10px;fontSize:14.5px' v-if='isEmpty'>We can't find anything suitable. Please search something else.</div>
+          </div>
+      </div>
       <div class="content">
           <div @click='goHome' class="brand">
             <img class='brand-icon' :src="icon">
@@ -33,14 +42,14 @@
           </div>
           <div class="nav-control">
               <div style='position:relative' class="wish-list center">
-                  <div v-if='$store.state.cart.wishlist.length>0' style='pointerEvents:none;height:17px;width:17px;position:absolute;right:-5px;bottom:3px;backgroundColor:orange;color:white;borderRadius:50%;fontSize:11px;zIndex:5' class="quantity center">{{$store.state.cart.wishlist.length}}</div>
+                  <div v-if='$store.state.cart.wishlist.length>0' style='pointerEvents:none;height:15px;width:15px;position:absolute;right:-3px;bottom:0;backgroundColor:orange;color:white;borderRadius:50%;fontSize:10px;zIndex:5' class="quantity center">{{$store.state.cart.wishlist.length}}</div>
                   <ion-icon @click='showWishlist' class='ion-icon' name="heart-outline"></ion-icon>
               </div>
               <div style='position:relative' class="cart center">
-                  <div v-if='$store.state.cart.cart.length>0' style='pointerEvents:none;height:17px;width:17px;position:absolute;right:-5px;bottom:3px;backgroundColor:orange;color:white;borderRadius:50%;fontSize:11px;zIndex:5' class="quantity center">{{$store.state.cart.cart.length}}</div>
+                  <div v-if='$store.state.cart.cart.length>0' style='pointerEvents:none;height:15px;width:15px;position:absolute;right:-3px;bottom:0;backgroundColor:orange;color:white;borderRadius:50%;fontSize:10px;zIndex:5' class="quantity center">{{$store.state.cart.cart.length}}</div>
                   <ion-icon @click='showCart' class='ion-icon' name="cart-outline"></ion-icon>
               </div>
-              <div class="search center">
+              <div @click='toggleSearchBar' class="search center">
                   <ion-icon class='ion-icon' name="search-outline"></ion-icon>
               </div>
               <div class="nav-mobile">
@@ -87,14 +96,56 @@
 
 <script>
 import icon from '@/assets/Icon/store-2.png'
+import db from '@/plugins/firebase'
 import firebase from "firebase/app";
+import SearchItem from '../SearchItem.vue';
 export default {
+  components: { SearchItem },
     data() {
         return {
-            icon:icon
+            icon:icon,
+            searchVal:'',
+            results:[],
+            isEmpty:false
+        }
+    },
+    watch:{
+        searchVal(e) {
+            this.results=[]
+            this.isEmpty=false
         }
     },
     methods: {
+        resetResult() {
+            this.toggleSearchBar()
+            this.results=[]
+            this.isEmpty=false
+        },
+        search() {
+            this.results=[]
+            this.isEmpty=false
+            if (this.searchVal.trim()==""||this.searchVal==null) {
+                return
+            }
+            this.$store.dispatch('loading')
+            db.ref('products').get().then((res)=>{
+                let val=res.val()
+                Object.keys(val).map((key)=>({key:key,title:val[key].title,category:val[key].category,price:val[key].price,image:val[key].images[0],type:val[key].type})).forEach(item => {
+                    if (item.title.toLowerCase().trim().replace(/\s+/g, "").includes(this.searchVal.toLowerCase().trim().replace(/\s+/g, "")) ||
+                        item.type.toLowerCase().trim().replace(/\s+/g, "").includes(this.searchVal.toLowerCase().trim().replace(/\s+/g, "")) ||
+                        item.category.toLowerCase().trim().replace(/\s+/g, "").includes(this.searchVal.toLowerCase().trim().replace(/\s+/g, ""))) {
+                        this.results.push(item)
+                    }
+                });
+                if (this.results.length==0) {
+                    this.isEmpty=true
+                }
+                this.$store.dispatch('unload')
+            }).catch(err=>{
+                this.$store.dispatch('unload')
+                alert(err)
+            })
+        },  
         goHome() {
             if (this.$route.name=="home") {
                 document.documentElement.scrollTop=0
@@ -151,6 +202,10 @@ export default {
             cover.classList.toggle('show')
             let nav=document.querySelector('.nav-bar .nav-control .nav-mobile .nb-cover .nb-content')
             nav.classList.toggle('show')
+        },
+        toggleSearchBar() {
+            document.querySelector('div.nav-bar div.nb-search').classList.toggle('show')
+            this.searchVal=''
         },
         slide() {
             let dropDown=document.querySelector('.nav-bar .content .about .drop-down')
@@ -214,6 +269,60 @@ div.nav-bar.center > div > div.login-account.center > div:hover,div.nav-bar.cent
 .nav-bar .content>div:not(.nav-control){
     cursor: pointer;
 }
+/* search bar */
+.nav-bar .nb-search {
+    position:absolute;
+    left:0;
+    height: 100%;
+    width: 0;
+    z-index: 10;
+    background-color:#313131;
+    box-shadow: 0 0 2px rgb(0, 0, 0,0.4);
+    transition:.2s ease-in;
+    opacity: 0;
+}
+.nav-bar .nb-search.show {
+    width: 100%;
+    opacity: 1;
+}
+.nav-bar .nb-search .nbs-close,
+.nav-bar .nb-search .nbs-search {
+    color:white;
+    width:50px;
+    font-size:30px;
+    cursor: pointer;
+    transition: .2s linear;
+}
+.nav-bar .nb-search .nbs-close:hover,
+.nav-bar .nb-search .nbs-search:hover {
+    color:orange;
+}
+.nav-bar .nb-search .nbs-input {
+    width: 70%;
+}
+.nav-bar .nb-search .nbs-input input {
+    width: 100%;
+    font-size: 20px;
+    background: transparent;
+    border:none;
+    outline:none;
+    color:white;
+}
+.nav-bar .nb-search .nbs-input input:focus {
+    border-bottom: 1px solid silver;
+}
+.nav-bar .nb-search .nbs-result {
+    position: absolute;
+    top:100%;
+    background-color:white;
+    box-shadow: 0 0 2px rgba(0,0,0,0.3);
+    width: 70%;
+    border-radius: 0 0 5px 5px;
+    transition: .2s linear;
+    max-height: 500px;
+    overflow-y:auto;
+}
+/* search bar */
 /* 
 .nav-bar .content>div.about:hover .drop-down{
     visibility: visible;
@@ -223,6 +332,7 @@ div.nav-bar.center > div > div.login-account.center > div:hover,div.nav-bar.cent
     display: flex;
     align-items: center;
     height: 100%;
+    overflow: hidden;
 }
 .nav-bar .content .brand .brand-name {
     margin-left: 5px;
@@ -385,6 +495,16 @@ div.nav-bar.center > div > div.login-account.center > div:hover,div.nav-bar.cent
         width: 100vw;
         height: 50px;
     }
+    .nav-bar .nb-search .nbs-close,
+    .nav-bar .nb-search .nbs-search {
+        font-size: 23px;
+    }
+    .nav-bar .nb-search .nbs-input input {
+        font-size: 15px;
+    }
+    .nav-bar .nb-search {
+        height: 50px;
+    }
     .nav-bar .content {
         justify-content: space-around;
     }
@@ -420,6 +540,14 @@ div.nav-bar.center > div > div.login-account.center > div:hover,div.nav-bar.cent
 @media only screen and (max-width: 425px) {
     .nav-bar .content .brand .brand-name{
         display: none;
+    }
+}
+@media only screen and (max-width: 320px) {
+    .nav-bar .content .brand {
+        display: none;
+    }
+    .nav-bar .nav-control .nav-mobile .nb-cover .nb-content.show {
+        width: 100%;
     }
 }
 </style>

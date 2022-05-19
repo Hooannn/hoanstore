@@ -5,13 +5,19 @@
               <span style='fontWeight:bolder;'>Top Product</span>
           </div>
           <div class="selection">
-              <span @click='selected="best-seller"' class='center' :class='{selected:selected=="best-seller"}'>BEST SELLERS</span>
-              <span @click='selected="feature"' class='center' :class='{selected:selected=="feature"}'>FEATURE</span>
-              <span @click='selected="on-sale"' class='center' :class='{selected:selected=="on-sale"}'>ON SALE</span>
+              <span @click='$store.state.app.topProduct="best-seller"' class='center' :class='{selected:$store.state.app.topProduct=="best-seller"}'>BEST SELLERS</span>
+              <span @click='$store.state.app.topProduct="feature"' class='center' :class='{selected:$store.state.app.topProduct=="feature"}'>FEATURE</span>
+              <span @click='$store.state.app.topProduct="on-sale"' class='center' :class='{selected:$store.state.app.topProduct=="on-sale"}'>ON SALE</span>
           </div>
       </div>
-      <div :key='selected' class="top-product-items">
+      <div v-if='$store.state.app.topProduct=="best-seller"' key='best-seller' class="top-product-items">
           <top-product-item v-for='product in topProductItems' :key='product.key' :class='product.key' :product='product'/>
+      </div>
+      <div v-if='$store.state.app.topProduct=="feature"' key='feature' class="top-product-items">
+          <top-product-item v-for='product in featureItems' :key='product.key' :class='product.key' :product='product'/>
+      </div>
+      <div v-if='$store.state.app.topProduct=="on-sale"' key='on-sale' class="top-product-items">
+          <top-product-item v-for='product in onSaleItems' :key='product.key' :class='product.key' :product='product'/>
       </div>
   </div>
 </template>
@@ -23,18 +29,31 @@ export default {
     components: {TopProductItem},
     data() {
         return {
-            selected:'best-seller',
-            topProductItems:[]
+            topProductItems:[],
+            featureItems:[],
+            onSaleItems:[]
         }
     },
     mounted() {
         this.$store.dispatch('loading')
-        this.$rtdbBind('topProductItems',db.ref('products').limitToFirst(4)).then(()=>{
-            this.$store.dispatch('unload')
-        }).catch(err=>{
-            alert(err)
-            this.$store.dispatch('unload')
-        })
+            this.$rtdbBind('topProductItems',db.ref('productsHighToLowRating').limitToLast(4)).then(()=>{
+                this.$store.dispatch('unload')
+            }).catch(err=>{
+                alert(err)
+                this.$store.dispatch('unload')
+            })
+            this.$rtdbBind('featureItems',db.ref('products').limitToLast(4)).then(()=>{
+                this.$store.dispatch('unload')
+            }).catch(err=>{
+                alert(err)
+                this.$store.dispatch('unload')
+            })
+            this.$rtdbBind('onSaleItems',db.ref('productsHighToLowPrice').limitToLast(4)).then(()=>{
+                this.$store.dispatch('unload')
+            }).catch(err=>{
+                alert(err)
+                this.$store.dispatch('unload')
+            })
     }
 }
 </script>

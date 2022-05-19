@@ -1,8 +1,10 @@
 <template>
   <div class="product-detail">
-      <carousel v-if='product.images.length>0' :items=1 :nav="false" :dots="false" class="pd-images center">
-          <img v-for='image in product.images' :key='image[".key"]' :src="image">
-      </carousel>
+      <div v-if='product.images.length>0'>
+          <carousel :items=1 :nav="false" :dots="false" class="pd-images center">
+            <img v-for='image in product.images' :key='image[".key"]' :src="image">
+          </carousel>
+      </div>
       <div class="pd-info">
           <div class="pdi-title">
               <span>{{product.title}}</span>

@@ -104,4 +104,10 @@ export default {
     border-bottom:2px solid gainsboro ;
     box-shadow: 0 0 2px rgba(0,0,0,0.5);
 }
+/* responsive */
+@media only screen and (max-width: 320px) {
+    .cart-bar .cb-content.show {
+        width: 100%;
+    }
+}
 </style>

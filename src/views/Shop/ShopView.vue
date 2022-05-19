@@ -8,7 +8,7 @@
             <div class="sv-filter-sort center">
                 <span>Sort:</span>
                 <select v-model='$store.state.app.sort'>
-                    <option><ion-icon name="trending-up-outline"></ion-icon>Select</option>
+                    <option><ion-icon name="trending-up-outline"></ion-icon>Default</option>
                     <option><ion-icon name="trending-up-outline"></ion-icon>Price: Lower to High</option>
                     <option><ion-icon name="trending-down-outline"></ion-icon>Price: High to Lower</option>
                     <option><ion-icon name="bar-chart-outline"></ion-icon>Rating</option>
@@ -48,10 +48,11 @@ export default {
             products:[],
             currentPage:1,
             loadProduct:1,
+            currentPrice:0
         }
     },
-    mounted() {
-        //if (this.$store.state.app.sort=='Select') {
+    methods:{
+        loadProducts(sortType) {
             if (this.$route.params.page==1) {
                 this.loadProduct=1
             }
@@ -59,14 +60,28 @@ export default {
                 this.loadProduct=(this.$route.params.page-1)*8
             }
             this.$store.dispatch('loading')
-            this.$rtdbBind('products',db.ref('products').orderByChild('id').startAt(this.loadProduct).limitToFirst(8)).then(()=>{
+            this.$rtdbBind('products',db.ref(sortType).orderByChild('id').startAt(this.loadProduct).limitToFirst(8)).then(()=>{
                 this.$store.dispatch('unload')
                 this.currentPage=parseInt(this.$route.params.page,10)
             }).catch(err=>{
                 alert(err)
                 this.$store.dispatch('unload')
             })
-        //}
+        },
+    },
+    mounted() {
+        if (this.$store.state.app.sort=='Default') {
+            this.loadProducts("products")
+        }
+        else if(this.$store.state.app.sort=='Price: Lower to High') {
+            this.loadProducts("productsLowToHighPrice")
+        }
+        else if(this.$store.state.app.sort=='Price: High to Lower') {
+            this.loadProducts("productsHighToLowPrice")
+        }
+        else if(this.$store.state.app.sort=='Rating') {
+            this.loadProducts("productsHighToLowRating")
+        }
     }
 }
 </script>
@@ -122,6 +137,7 @@ export default {
     transform: translateX(-50%);
     display: flex;
     justify-content: space-between;
+    margin-top:15px;
 }
 .shop-view .sv-pages div {
     cursor: pointer;
