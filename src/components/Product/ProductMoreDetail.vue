@@ -9,21 +9,31 @@
       </div>
     </div>
     <div v-if='selected=="detail"' class="pmd-content detail">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-      Minus voluptate, assumenda laborum dolores necessitatibus cum in, cumque soluta non ex similique eligendi officiis delectus omnis eaque alias ipsam! 
-      Quia, repudiandae?
+      <pre>
+        {{detail||lorem}}
+      </pre>
     </div>
     <div v-if='selected=="reviews"' class="pmd-content reviews">
-      Reviews here.
+      <product-reviews :reviews='reviews'/>
     </div>
+    <div></div>
   </div>
 </template>
 
 <script>
+import ProductReviews from './ProductReviews.vue'
 export default {
+  components: { ProductReviews },
+  props:{
+    reviews:Array,
+    detail:String
+  },
   data() {
     return {
-      selected:'detail'
+      selected:'reviews',
+      lorem:`Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatem cum repellat quisquam, 
+      facere quo sint dolorem. Aut molestiae voluptatum natus doloremque ut! 
+      Illum sit natus voluptatibus, consequatur ipsa harum cum.`
     }
   }
 }

@@ -49,22 +49,22 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Lato&family=Poppins:wght@200;400&display=swap');
 /*  scroll bar style */
-::-webkit-scrollbar-track
-{
+::-webkit-scrollbar-track{
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	border-radius: 10px;
 	background-color: #F5F5F5;
 }
 
-::-webkit-scrollbar
-{
+::-webkit-scrollbar{
 	width: 8px;
 	background-color: #F5F5F5;
 }
 
-::-webkit-scrollbar-thumb
-{
-	background-color: #313131;
+::-webkit-scrollbar-thumb{
+	background-color: rgb(49, 49, 49);
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color:rgb(49, 49, 49,0.8);
 }
 /*  scroll bar style */
 body {

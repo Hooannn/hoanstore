@@ -38,7 +38,13 @@
           </div>
           <div class="login-account center">
               <button v-if='$store.state.user.email==null' @click='showLoginModal' class="btn btn-dark btn-sm"><span>LOGIN</span></button> <!-- <ion-icon class='ion-icon' name="chevron-down-outline"></ion-icon> -->
-              <div @click='$router.push({name:"account"})' :class='{selected:$route.name=="account"}' v-if='$store.state.user.email!=null'><span v-if='$store.state.user.displayName!=null'>{{$store.state.user.displayName}}</span><span v-if='$store.state.user.displayName==null'>{{$store.state.user.email}}</span></div>
+              <div class='center' @click='$router.push({name:"account"})' :class='{selected:$route.name=="account"}' v-if='$store.state.user.email!=null'>
+                  <div class='center' style='width:22px;height:22px;borderRadius:50%;border:1px solid silver;marginRight:2px;overflow:hidden'>
+                      <img style='width:100%;height:100%;objectFit:cover' :src="$store.state.user.photoURL" alt="Avatar image">
+                  </div>
+                  <span >{{$store.state.user.displayName||$store.state.user.email}}</span>
+                  <!--<span v-if='$store.state.user.displayName==null'>{{$store.state.user.email}}</span>-->
+              </div>
           </div>
           <div class="nav-control">
               <div style='position:relative' class="wish-list center">
@@ -77,11 +83,11 @@
                           </div>
                           <!-- is login -->
                           <div @click='$router.push({name:"account"}),closeNavMobile()' v-if='$store.state.user.email!=null' class="default-account center">
-                              <div v-if='$store.state.user.photoURL==null' style='fontSize:30px' class='da-avatar center'>
-                                  <ion-icon name="person-circle"></ion-icon>
+                              <div style='fontSize:30px;width:22px;height:22px;borderRadius:50%;border:1px solid silver;marginRight:2px;overflow:hidden' class='da-avatar center'>
+                                  <img style='width:100%;height:100%;objectFit:cover' :src="$store.state.user.photoURL" alt="Avatar image">
                               </div>
                               <div class='da-info center' style='flexDirection:column'>
-                                  <span>{{$store.state.user.email}}</span>
+                                  <span>{{$store.state.user.displayName||$store.state.user.email}}</span>
                               </div>
                           </div>
                           <!-- -->

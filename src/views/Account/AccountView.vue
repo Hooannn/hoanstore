@@ -1,6 +1,7 @@
 <template>
   <div class="account-view">
       <div class="first-col">
+          <account-avatar/>
           <account-detail/>
           <account-password/>
       </div>
@@ -18,8 +19,9 @@ import AccountDetail from '@/components/Account/AccountDetail.vue'
 import store from '@/store/store'
 import AccountPassword from '@/components/Account/AccountPassword.vue'
 import BillList from '@/components/Account/BillList.vue'
+import AccountAvatar from '@/components/Account/AccountAvatar.vue';
 export default {
-  components: { AccountDetail, AccountPassword, BillList },
+  components: { AccountDetail, AccountPassword, BillList, AccountAvatar },
   methods: {
       gotoAdminSite() {
           this.$router.push({name:"manage"})

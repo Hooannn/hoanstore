@@ -72,6 +72,9 @@ export default {
                         this.$router.push({name:"home"})
                     }
                     this.$store.state.user=response.user
+                    if (response.user.photoURL==null) {
+                        this.$store.state.user.photoURL='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQARPRzahfEwt6xf7y7V2wDIWSKRGb0PmE3ow&usqp=CAU'
+                    }
                     this.result='Login successfully.'
                     db.ref('billinformation').child(response.user.uid).child('email').get().then((res)=>{this.$store.state.cart.orderInformation.email=res.val()||''}).catch(()=>{return})
                     db.ref('billinformation').child(response.user.uid).child('phone').get().then((res)=>{this.$store.state.cart.orderInformation.phone=res.val()||''}).catch(()=>{return})

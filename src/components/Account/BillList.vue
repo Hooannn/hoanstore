@@ -1,6 +1,7 @@
 <template>
   <div class="bill-list">
       <div class="bl-title">YOUR BILL</div>
+      <div style='padding:10px;fontSize:15px' v-if='bills.length==0'>Your bill is empty now. <span @click='$router.push({name:"shop",params:{page:1}})' onMouseOver='this.style.textDecoration="underline"' onMouseOut='this.style.textDecoration="unset"' style='color:blue;cursor:pointer'>Go shopping ?</span></div>
       <div v-for='(bill,index) in bills' :key='"bill"+bill.key' class="bl-bill">
         <div class="blb-id center">
           {{index+1}}
@@ -57,7 +58,7 @@ export default {
   padding: 15px 25px;
   display: flex;
   flex-direction: column;
-  max-height: 700px;
+  max-height: 999px;
   overflow-y:auto;
 }
 .bill-list .bl-title {

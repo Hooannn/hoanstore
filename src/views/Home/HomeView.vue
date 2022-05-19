@@ -74,7 +74,7 @@
                 </div>
             </div>
         </div>
-        <button style='height:40px;margin:15px auto;' class="btn btn-dark btn-sm">See more</button>
+        <button @click='$router.push({name:"shop",params:{page:1}})' style='height:40px;margin:15px auto;' class="btn btn-dark btn-sm">See more</button>
         <div class="store-offer">
             <div class='offer'>
                 <i class="fas fa-shipping-fast center"></i>

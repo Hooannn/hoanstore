@@ -76,6 +76,7 @@ export default {
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
   width: 100%;
   padding: 15px 25px;
+  margin-top:25px;
 }
 .account-detail .ad-title {
   height: 50px;

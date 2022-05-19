@@ -1,7 +1,7 @@
 <template>
   <div :key='product.key' class="product-view">
       <product-detail :product='product'/>
-      <product-more-detail/>
+      <product-more-detail :detail='product.detail' :reviews='reviews'/>
       <recommend-product :type='product.type'/>
   </div>
 </template>
@@ -15,11 +15,24 @@ export default {
     components:{ProductDetail,ProductMoreDetail,RecommendProduct},
     data() {
         return {
-            product:{}
+            product:{},
+            reviews:[]
         }
     },
     mounted() {
-        this.$rtdbBind('product',db.ref('products').child(this.$route.params.key))
+        this.$store.dispatch('loading')
+        this.$rtdbBind('product',db.ref('products').child(this.$route.params.key)).then(()=>{
+            this.$rtdbBind('reviews',db.ref('products').child(this.$route.params.key).child('reviews').orderByChild('time')).then(()=>{
+                document.documentElement.scrollTop=0
+                this.$store.dispatch('unload')
+            }).catch(err=>{
+                alert(err)
+                this.$store.dispatch('unload')
+            })
+        }).catch(err=>{
+            alert(err)
+            this.$store.dispatch('unload')
+        })
     }
 }
 </script>
