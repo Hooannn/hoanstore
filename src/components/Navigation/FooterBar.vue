@@ -4,11 +4,7 @@
               <div class="tf-content">
                 <div class="tf-store">
                     <div style='display:flex'>
-                        <img style='width:40px;height:40px' :src="icon">
-                        <div style='marginLeft:5px;'>
-                            <div style='color:orangered;fontWeight:800;'>hoanthui's Store</div>
-                            <div style='fontWeight:bolder;fontStyle:italic;'>Enjoy your shopping</div>
-                        </div>
+                        <img style='width:190px;height:45px;boxShadow: 2px 2px 5px rgba(0,0,0,0.8);borderRadius: 5px;' :src="icon">
                     </div>
                     <div>
                         <span><strong>Phone:</strong> 0501110222</span>
@@ -59,7 +55,7 @@
 </template>
 
 <script>
-import icon from '@/assets/Icon/store-2.png'
+import icon from '@/assets/Icon/icon1.png'
 export default {
     data() {
         return {
@@ -112,6 +108,7 @@ export default {
     display: flex;
     flex-direction: column;
     margin-top:50px;
+    box-shadow: 0 0 2px rgba(0,0,0,0.4);
 }
 .footer-bar .top-footer .tf-content,.footer-bar .bottom-footer .bf-content {
     width: 1280px;

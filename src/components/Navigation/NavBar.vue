@@ -12,10 +12,10 @@
       <div class="content">
           <div @click='goHome' class="brand">
             <img class='brand-icon' :src="icon">
-            <div class='brand-name'>
+            <!-- <div class='brand-name'>
               <div style='color:orangered;fontWeight:800;'>hoanthui's Store</div>
               <div style='fontWeight:bolder;fontStyle:italic;'>Enjoy your shopping</div>
-            </div>
+            </div> -->
           </div>
           <div class="home center">
               <span @click='$router.push({name:"home"})' :class='{selected:$route.name=="home"}'>HOME</span> <!-- <ion-icon class='ion-icon' name="chevron-down-outline"></ion-icon> -->
@@ -101,7 +101,7 @@
 </template>
 
 <script>
-import icon from '@/assets/Icon/store-2.png'
+import icon from '@/assets/Icon/icon1.png'
 import db from '@/plugins/firebase'
 import firebase from "firebase/app";
 import SearchItem from '../SearchItem.vue';
@@ -337,8 +337,11 @@ div.nav-bar.center > div > div.login-account.center > div:hover,div.nav-bar.cent
 .nav-bar .content .brand {
     display: flex;
     align-items: center;
-    height: 100%;
+    width: 190px;
+    height: 45px;
     overflow: hidden;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.8);
+    border-radius: 5px;
 }
 .nav-bar .content .brand .brand-name {
     margin-left: 5px;
@@ -348,8 +351,9 @@ div.nav-bar.center > div > div.login-account.center > div:hover,div.nav-bar.cent
     font-size: 20px;
 }
 .nav-bar .content .brand .brand-icon {
-    width: 50px;
-    height: 50px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 .nav-bar .content .nav-control{
     display: flex;
@@ -514,6 +518,10 @@ div.nav-bar.center > div > div.login-account.center > div:hover,div.nav-bar.cent
     .nav-bar .content {
         justify-content: space-around;
     }
+    .nav-bar .content .brand{
+        width: 150px;
+        height: 36px;
+    }
 }
 @media only screen and (max-width: 768px) {
     .nav-bar .content .home,.nav-bar .content .shop,.nav-bar .content .about,.nav-bar .content .login-account {
@@ -529,9 +537,9 @@ div.nav-bar.center > div > div.login-account.center > div:hover,div.nav-bar.cent
     .nav-bar .content .brand .brand-name{
         font-size: 15px;
     }
-    .nav-bar .content .brand .brand-icon{
-        width: 35px;
-        height: 35px;
+    .nav-bar .content .brand{
+        width: 130px;
+        height: 30px;
     }
     .nav-bar .content .nav-control{
         width: 250px;
@@ -546,6 +554,10 @@ div.nav-bar.center > div > div.login-account.center > div:hover,div.nav-bar.cent
 @media only screen and (max-width: 425px) {
     .nav-bar .content .brand .brand-name{
         display: none;
+    }
+    .nav-bar .content .brand{
+        width: 90px;
+        height: 22px;
     }
 }
 @media only screen and (max-width: 320px) {
