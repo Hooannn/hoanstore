@@ -35,6 +35,7 @@
         </div>
         <template slot="next"><span class="next"><ion-icon style='color:orange;zIndex:50;fontSize:30px' class='next-icon' name="chevron-forward-circle-outline"></ion-icon></span></template>
     </carousel>
+    <sale-time/>
     <div class="sec-2">
         <div class="speaker-intro">
             <div class="text">
@@ -119,8 +120,9 @@
 import TopProduct from '@/components/HomeComponent/TopProduct.vue'
 import carousel from 'vue-owl-carousel'
 import NewArrival from '@/components/HomeComponent/NewArrival.vue'
+import SaleTime from '@/components/HomeComponent/SaleTime.vue'
 export default {
-    components: { carousel, TopProduct, NewArrival },
+    components: { carousel, TopProduct, NewArrival, SaleTime },
     data() {
         return {
             key1:1,
