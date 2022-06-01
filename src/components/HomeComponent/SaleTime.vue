@@ -6,10 +6,13 @@
           </div>
           <span>Upcoming Sale</span>
       </div>
-      <div class="st-digital-clock center">
+      <div v-if='timeremain!=0' class="st-digital-clock center">
           <div :key='"sale-time"+hours' class="stdc-cardtime">{{hours}}</div>
           <div :key='"sale-time"+minutes' class="stdc-cardtime">{{minutes}}</div>
           <div :key='"sale-time"+seconds' style='animation:none' class="stdc-cardtime">{{seconds}}</div>
+      </div>
+      <div v-if='timeremain==0' style='margin:10px 0' class='center'>
+          <div class="st-loader"></div>
       </div>
   </div>
 </template>
@@ -93,6 +96,14 @@ export default {
     justify-content: center;
     position:relative;
 }
+.sale-time .st-loader {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border:12px solid whitesmoke;
+    border-top-color: var(--bs-teal);
+    animation:spin .5s linear infinite;
+}
 .sale-time .st-title {
     font-weight: bold;
     text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
@@ -124,6 +135,14 @@ export default {
     100% {
         transform: rotateX(0);
         opacity: 1;
+    }
+}
+@keyframes spin {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
     }
 }
 @media only screen and (max-width: 768px) {
