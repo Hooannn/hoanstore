@@ -8,8 +8,9 @@
         <div :key='"cb"+$store.state.cart.cart.length' class="cbc-items">
           <cart-bar-item v-for='(item,index) in $store.state.cart.cart' :key='"cbi"+$store.state.cart.cart.length+index+$store.state.cart.rstKey' :item='item' :index='index' :class='"cbi"+index'/>
         </div>
-        <div style='padding:10px;fontSize:15px;' v-if='$store.state.cart.cart.length==0'>
-            Your shopping cart is empty.
+        <div class='center' style='padding:10px;fontSize:15px;flexDirection:column' v-if='$store.state.cart.cart.length==0'>
+            <div>Your shopping cart is empty.</div>
+            <div style='fontSize:100px;color:#ccc'><ion-icon name="storefront-outline"></ion-icon></div>
         </div>
         <cart-bar-total :key='"cbt"+$store.state.cart.cart.length+$store.state.cart.rstKey' v-if='$store.state.cart.cart.length>0' style='justifyContent:space-between' class="cbc-cost center"/>
         <div v-if='$store.state.cart.cart.length>0' style='justifyContent:space-around;margin:25px 0;' class="cbc-control center">

@@ -1,8 +1,8 @@
 <template>
   <div class="manage-view center">
-      <button @click='sortLowtoHigh' class="btn btn-sm btn-dark">Sort Low to High</button>
-      <button @click='sortHightoLow' class="btn btn-sm btn-dark">Sort High to Low</button>
-      <button @click='sortRating' class="btn btn-sm btn-dark">Sort Rating</button>
+      <button class="btn btn-sm btn-dark">Sort Low to High</button>
+      <button class="btn btn-sm btn-dark">Sort High to Low</button>
+      <button class="btn btn-sm btn-dark">Sort Rating</button>
   </div>
 </template>
 

@@ -1,7 +1,10 @@
 <template>
   <div class="wishlist-view">
-      <div v-if='$store.state.cart.wishlist.length==0'>
-        It seem your wishlist is empty. <span @click='$router.push({name:"shop",params:{page:1}})' style='cursor:pointer' onMouseOut='this.style.color="black"' onMouseOver='this.style.color="blue"'>Go to shop ?</span>
+      <div class='center' style='flexDirection:column' v-if='$store.state.cart.wishlist.length==0'>
+          <div style='fontSize:100px;color:#ccc'><ion-icon name="reader-outline"></ion-icon></div>
+          <div>
+            It seem your wishlist is empty. <span @click='$router.push({name:"shop",params:{page:1}})' style='cursor:pointer;color:orange' onMouseOut='this.style.color="orange"' onMouseOver='this.style.color="blue"'>Go to shop ?</span>
+          </div>
       </div>
       <div v-if='$store.state.cart.wishlist.length>0' class="wv-header">
           <div class='wvh-id center'>
